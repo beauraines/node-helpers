@@ -1,0 +1,20 @@
+{
+  "name": "helpers",
+  "version": "1.0.0",
+  "description": "Collection of node helpers",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "beau.raines@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "node-fetch": "^2.6.7",
+    "sqlite": "^4.1.2",
+    "sqlite3": "^5.1.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.27.0",
+    "jest": "^29.3.1"
+  }
+}
