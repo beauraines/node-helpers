@@ -42,6 +42,20 @@ async function readFile(filePath) {
 }
 
 /**
+ * Asynchronously reads the contents of a directory and returns the filenames as an array. Optionally, 
+ * filters by the extension
+ * @param {String} directory Path to the directory
+ * @param {String | null} extension optional file extension to filter for
+ * @returns { String[] } of file names
+ */
+async function listFiles(directory,extension) {
+  // TODO check for directory existence
+  return fs.readdirSync(directory,{withFileTypes: true})
+    .filter(item => !item.isDirectory() && item.name.includes(extension))
+    .map(item => item.name)
+}
+
+/**
  * Groups an array by specified properties and sums other specified properties
  * 
  * https://stackoverflow.com/questions/46794232/group-objects-by-multiple-properties-in-array-then-sum-up-their-values
@@ -63,10 +77,21 @@ async function readFile(filePath) {
   );
 }
 
+/**
+ * Returns the current unix timestamp in seconds
+ * 
+ * @returns Number
+ */
+function unixTimestamp() {
+  return Math.floor(Date.now() / 1000)
+}
+
 module.exports = {
-    groupAndSum,
-    toTitleCase,
     fileExists,
+    groupAndSum,
+    readFile,
+    listFiles,
     stripNewLines,
-    readFile
+    toTitleCase,
+    unixTimestamp
 }
