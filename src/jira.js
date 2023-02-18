@@ -20,6 +20,7 @@ function credentialsToToken(email,token) {
  * @returns Object
  */
 async function getIssuesByJql(jql,credentials) {
+    let {domain } = credentials;
     let headersList = {
         "Accept": "*/*",
         "User-Agent": "Thunder Client (https://www.thunderclient.com)",
@@ -40,8 +41,7 @@ async function getIssuesByJql(jql,credentials) {
         "fields": fields
     };
     
-    // TODO make Base URL a parameter or read from the credentials object
-    let response = await fetch(`https://taserintl.atlassian.net/rest/api/3/search`, { 
+    let response = await fetch(`https://${domain}.atlassian.net/rest/api/3/search`, { 
         method: "POST",
         body: JSON.stringify(bodyContent),
         headers: headersList
@@ -80,7 +80,7 @@ async function getIssuesByJql(jql,credentials) {
 
     for (const requestBody of requestBodies) {
         console.log(`Making API call startAt ${requestBody.startAt}`);
-        let response = await fetch(`https://taserintl.atlassian.net/rest/api/3/search`, {
+        let response = await fetch(`https://${domain}.atlassian.net/rest/api/3/search`, {
             method: "POST",
             body: JSON.stringify(requestBody),
             headers: headersList
@@ -107,6 +107,7 @@ async function getIssuesByJql(jql,credentials) {
  * @returns Object
  */
 async function getIssuesForEpic(epic,credentials) {
+    let {domain } = credentials;
     let headersList = {
         "Accept": "*/*",
         "User-Agent": "Thunder Client (https://www.thunderclient.com)",
@@ -114,8 +115,7 @@ async function getIssuesForEpic(epic,credentials) {
     }
        
     // TODO make the max results an option parameter
-    // TODO make URL a parameter or read from the credentials object
-    let response = await fetch(`https://taserintl.atlassian.net/rest/agile/1.0/epic/${epic}/issue?maxResults=100`, { 
+    let response = await fetch(`https://${domain}.atlassian.net/rest/agile/1.0/epic/${epic}/issue?maxResults=100`, { 
         method: "GET",
         headers: headersList
     })
@@ -140,9 +140,7 @@ async function getJiraData(url,credentials) {
         response = await fetch(`https://${domain}.atlassian.net/${url}`, {
             method: 'GET',
             headers: {
-                'Authorization': `Basic ${Buffer.from(
-                    `${email}:${token}`
-                ).toString('base64')}`,
+                'Authorization': `Basic ${credentialsToToken(email,token)}`,
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
