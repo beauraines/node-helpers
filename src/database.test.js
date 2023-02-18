@@ -10,7 +10,7 @@ jest.mock('os');
 jest.mock('./helpers');
 
 
-describe.skip('database module', () => {
+describe('database module', () => {
 
     it('should exit if the database does not exist', () => {
         helpers.fileExists.mockReturnValue(false);
