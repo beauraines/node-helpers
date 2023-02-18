@@ -86,7 +86,17 @@ function unixTimestamp() {
   return Math.floor(Date.now() / 1000)
 }
 
+/**
+ * Returns unix timestamp in milliseconds
+ * 
+ * @returns Number
+ */
+function getEpochMillis() {
+  return Date.now()
+}
+
 module.exports = {
+    getEpochMillis,
     fileExists,
     groupAndSum,
     readFile,
