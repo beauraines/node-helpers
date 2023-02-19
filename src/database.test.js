@@ -4,25 +4,25 @@ const sqlite3 = require('sqlite3');
 const helpers = require('./helpers');
 const { getDBConnection } = require('./database');
 
-
 jest.mock('sqlite');
 jest.mock('os');
 jest.mock('./helpers');
 
 
-describe.skip('database module', () => {
+describe('database module', () => {
 
-    it('should exit if the database does not exist', () => {
+    it('should exit if the database does not exist', async () => {
         helpers.fileExists.mockReturnValue(false);
         console.error = jest.fn()
-        process.exit = jest.fn()
+        const mockExit = jest.spyOn(process, 'exit').mockImplementation(() => {});
 
-        const db = getDBConnection('/home/database-does-not-exist.db')
-        expect(process.exit).toHaveBeenCalled()
+
+        await getDBConnection('/home/database-does-not-exist.db')
+        expect(mockExit).toHaveBeenCalledWith(1)
 
     })
     
-    it('should open the default database if no file specified', () => {
+    it('should open the default database if no file specified', async () => {
         // mock sqlite.open()
         // Need `${homedir}/BurnDownStatus.db` or do we mock it?
         const expectedHomeDir = '/home';
@@ -36,7 +36,7 @@ describe.skip('database module', () => {
         
         const file = undefined;
         // call function with null file
-        const db = getDBConnection(file)
+        const db = await getDBConnection(file)
 
         // In theory you should mock the open function and what it returns.
 
@@ -48,7 +48,7 @@ describe.skip('database module', () => {
         
     })
     
-    it('should open the specified database if a file is specified', () => {
+    it('should open the specified database if a file is specified', async () => {
 
 
         const expectedHomeDir = '/home';
@@ -58,7 +58,7 @@ describe.skip('database module', () => {
 
         const expectedDefaultFile = `${os.homedir()}/my_database.db`
 
-        const db = getDBConnection(expectedDefaultFile)
+        const db = await getDBConnection(expectedDefaultFile)
 
         expect(sqlite.open).toHaveBeenCalledWith({
             filename: expectedDefaultFile,
