@@ -4,7 +4,9 @@
   "description": "Collection of node helpers",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "release": "standard-version",
+    "should-release": "should-release"
   },
   "author": "beau.raines@gmail.com",
   "license": "ISC",
