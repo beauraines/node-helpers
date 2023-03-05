@@ -94,6 +94,28 @@ class AzureStorage {
   }
 
   /**
+   * Gets a SAS token for the storage queue
+   * .
+   * @param {string} queueUrl The URL to the storage queue
+   * @param {object} options Should include `permissions: "raup"` or some combination thereof Any additional options supported. https://docs.microsoft.com/en-us/rest/api/storageservices/constructing-a-service-sas
+   */
+getStorageQueueSignedURL(queueUrl,options) {
+    
+  const queueClient = new QueueClient(
+      queueUrl,
+      new StorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+      )
+  
+  options = {
+      startsOn: dayjs().toDate(),
+      ...options
+  }
+
+  return queueClient.generateSasUrl(options)
+  
+}
+
+  /**
    * Generates a signed URL for the specified blob in the specified container. The signed URL will expire
    * after the class's `tokenExpiry` minutes, which defaults to 60 if not specified. 
    * 
