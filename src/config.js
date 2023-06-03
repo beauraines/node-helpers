@@ -7,6 +7,8 @@ const path = require('path');
  * Reads the specified config file from the users home directory
  * 
  * @param {string} configFile file name for the JSON config file, from the users home directory
+ * 
+ * @throws {Config file not found. You must create one using the config command}
  * @returns {object} the configuration object
  */
 const readConfig = async (configFile) => {
