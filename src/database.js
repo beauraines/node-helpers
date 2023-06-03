@@ -2,15 +2,15 @@ const {homedir} = require('os');
 const sqlite = require('sqlite');
 const sqlite3 = require('sqlite3');
 const {fileExists} = require('./helpers');
+const path = require('path');
 
 /**
  * Opens the BurnDownStatus SQLite3 Database
- * @param file file name of the SQLite3 DB. If not provided, defaults to ${homedir}/BurnDownStatus.db
+ * @param file file name of the SQLite3 DB. If not provided, defaults to BurnDownStatus.db in the users home
  * @returns SQLite database connection
  */
 async function getDBConnection(file) {
-    const homeDir = homedir();
-    file = file ? file : `${homeDir}/BurnDownStatus.db`;
+    file = file ? file : path.join(homedir(),'BurnDownStatus.db');
     if (! await fileExists(file)){
         console.error(`${file} not found`);
         // ! Separation of concerns - this should probably not be doing the exiting, but it is.
