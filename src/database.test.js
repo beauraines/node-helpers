@@ -3,6 +3,7 @@ const sqlite = require('sqlite');
 const sqlite3 = require('sqlite3');
 const helpers = require('./helpers');
 const { getDBConnection } = require('./database');
+const path = require('path');
 
 jest.mock('sqlite');
 jest.mock('os');
@@ -32,7 +33,7 @@ describe('database module', () => {
         helpers.fileExists.mockReturnValue(true);
 
 
-        const expectedDefaultFile = `${os.homedir()}/BurnDownStatus.db`
+        const expectedDefaultFile = path.join(os.homedir(),'BurnDownStatus.db')
         
         const file = undefined;
         // call function with null file
@@ -56,7 +57,7 @@ describe('database module', () => {
         os.homedir.mockReturnValue(expectedHomeDir);
         helpers.fileExists.mockReturnValue(true);
 
-        const expectedDefaultFile = `${os.homedir()}/my_database.db`
+        const expectedDefaultFile = path.join(os.homedir(),'BurnDownStatus.db')
 
         const db = await getDBConnection(expectedDefaultFile)
 
