@@ -121,8 +121,26 @@ function sparkline(data,label,options) {
   return `${label} [${minValue},${maxValue}] ${sparkly(data.map( x=> x- minValue))} ${lastValue}`
 }
 
+/**
+ * Given a RESTful url e.g. https://www.example.com/app/#list/44719910/959889147?id=12234&363636=334' 
+ * this function will return the resource ID, ignoring the query parameters
+ * 
+ * @param {string} url The URL to find the resource or last part of the routing
+ * @returns string
+ */
+const getResourceId = (url) => {
+  let queryStringStart = url.lastIndexOf('?')
+  if (queryStringStart == -1) {
+      queryStringStart = url.length
+  }
+  const lastSlash = url.lastIndexOf('/')
+  const id = url.substring(lastSlash+1,queryStringStart) 
+  return id
+}
+
 module.exports = {
     getEpochMillis,
+    getResourceId,
     fileExists,
     groupAndSum,
     readFile,
