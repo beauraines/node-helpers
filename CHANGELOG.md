@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.6.0](https://github.com/beauraines/node-helpers/compare/v2.5.2...v2.6.0) (2023-06-14)
+
+
+### Features
+
+* Adds Azure DevOps helpers ([#36](https://github.com/beauraines/node-helpers/issues/36)) ([3bf0658](https://github.com/beauraines/node-helpers/commit/3bf065851e2ebbeb17de4d010a8e5e25323f8ecf))
+
 ### [2.5.2](https://github.com/beauraines/node-helpers/compare/v2.5.0...v2.5.2) (2023-06-03)
 
 ## [2.5.0](https://github.com/beauraines/node-helpers/compare/v2.4.3...v2.5.0) (2023-06-03)
