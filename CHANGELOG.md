@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.7.0](https://github.com/beauraines/node-helpers/compare/v2.6.1...v2.7.0) (2023-06-14)
+
+
+### Features
+
+* exports new ADO module ([6dbc0d9](https://github.com/beauraines/node-helpers/commit/6dbc0d966ed4daefaaa8c3ed8e0cdf9368a78d87))
+
 ### [2.6.1](https://github.com/beauraines/node-helpers/compare/v2.6.0...v2.6.1) (2023-06-14)
 
 ## [2.6.0](https://github.com/beauraines/node-helpers/compare/v2.5.2...v2.6.0) (2023-06-14)
