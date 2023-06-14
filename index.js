@@ -1,4 +1,5 @@
 
+const ado = require("./src/ado");
 const AzureStorage = require("./src/azure")
 const config = require('./src/config.js')
 const credentials = require("./src/credentials.js");
@@ -12,6 +13,7 @@ module.exports = {
     credentials,
     database,
     helpers,
-    jira
+    jira,
+    ado
 }
 
