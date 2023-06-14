@@ -81,6 +81,7 @@ async function getDistinctParentWorkItems(workItemAPI, ids) {
 async function callRestApi(url, username, token) {
     // console.log(url) // Only display this in verbose mode
     // Bearer token format for ADO
+    // eslint-disable-next-line no-undef
     let bearerToken = Buffer.from(`${username}:${token}`).toString('base64');
 
     let response;
