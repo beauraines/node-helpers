@@ -163,6 +163,29 @@ getStorageQueueSignedURL(queueUrl,options) {
     });
   }
 
+  /**
+   * Downloads a blob to a local file
+   * 
+   * @param {string} containerName the name of the container to download the blob from
+   * @param {string} blob The blob to download
+   * @param {string} file The path to the location to write the file
+   */
+  async downloadBlobToFile(containerName,blob,file) {
+    const blobService = azure.createBlobService(this.storageAccountName, this.storageAccountKey, this.host('blob',this.cloudName));
+    const options = {
+        access: 'container'
+    };
+    
+    blobService.getBlobToLocalFile(containerName,blob,file,options,function(error,response){
+      if( error) {
+        console.error(error.message)
+      } else {
+        // console.log(response)
+        console.log(`${response.name} downloaded to ${file}`)
+      }
+    });
+  }
+
 }
 
 module.exports = AzureStorage
