@@ -1,5 +1,6 @@
 const azure = require('azure-storage');
 const dayjs = require('dayjs')
+const fs = require('fs');
 const { streamToBuffer } = require('./helpers.js')
 const { BlobServiceClient, StorageSharedKeyCredential } = require("@azure/storage-blob");
 const { QueueClient } = require("@azure/storage-queue");
