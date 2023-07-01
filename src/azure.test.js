@@ -1,3 +1,5 @@
+const dayjs = require('dayjs')
+const { fileExists } = require('./helpers.js')
 const AzureStorage  = require('./azure.js')
 
 describe('Azure Storage module', () => {
@@ -43,7 +45,54 @@ describe('Azure Storage module', () => {
     })
 
     it.todo('should generate a signed URL for a blob')
-    it.todo('should upload a blob from a file')
+
+    it.only('should upload a blob from a file',async () => {
+        const account = "devstoreaccount1";
+        const accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
+        let containerName = 'node-helpers-testing'
+        let file = 'package.json'
+        let azure = new AzureStorage(account,accountKey,{cloudName:'Azurite'})
+        let success = await azure.uploadBlobFromFile(containerName,file)
+        expect(success)
+    })
+    
     it.todo('should send a message to the storage queue')
+
+    it.only('should get a blob from azure storage', async () =>{
+        const account = "devstoreaccount1";
+        const accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
+        let containerName = 'node-helpers-testing'
+        let blobName = 'package.json'
+        let azure = new AzureStorage(account,accountKey,{cloudName:'Azurite'})
+        let file = await azure.getBlob(containerName,blobName)
+        file = JSON.parse(file)
+        expect(file.name).toBe("@beauraines/node-helpers")
+
+    })
+
+    it('should download a blob to a file', async () => {
+        const account = "devstoreaccount1";
+        const accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
+        let containerName = 'node-helpers-testing'
+        let blobName = 'package.json'
+        // TODO move this to the os temp dir
+        let file = `/tmp/package.${dayjs().add()}.json`
+        let azure = new AzureStorage(account,accountKey,{cloudName:'Azurite'})
+        await azure.downloadBlobToFile(containerName,blobName,file)
+        // console.log(file)
+        expect(fileExists(file))
+    })
+
+
+
+
+    it.todo('should list blobs from azure storage')
+    // const AzureStorage  = require('./azure.js')
+    // const account = "devstoreaccount1";
+    // const accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
+    // let containerName = 'blob1675448230584'
+    // let blobName = '00096798-51a1-42f3-bb70-333232323643.json'
+    // let azure = new AzureStorage(account,accountKey,{cloudName:'Azurite'})
+    // let blobs = await azure.listBlobs('test')
 
 })

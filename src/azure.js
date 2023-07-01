@@ -149,6 +149,7 @@ getStorageQueueSignedURL(queueUrl,options) {
    * 
    * @param {string} containerName the container to which the file will be uploaded
    * @param {string} file The path the the local file to upload to the container
+   * @returns {boolean} Success or failure to upload
    */
   //TODO migrate to @azure/storage-blob
   uploadBlobFromFile(containerName,file) {
@@ -161,8 +162,11 @@ getStorageQueueSignedURL(queueUrl,options) {
     blobService.createBlockBlobFromLocalFile(containerName,blobName,file,options,function(error,response) {
       if( error) {
         console.error(error.message)
+        return false
       } else {
+        // TODO remove this from this function - separation of concerns, let the caller do the logging
         console.log(`${response.name} uploaded to ${response.container} container`)
+        return true
       }
     });
   }
@@ -183,8 +187,10 @@ getStorageQueueSignedURL(queueUrl,options) {
     const blobClient = containerClient.getBlobClient(blobName);
 
     const downloadBlockBlobResponse = await blobClient.download();
+    // TODO add a success and failure test
     let writer = fs.createWriteStream(file) 
     downloadBlockBlobResponse.readableStreamBody.pipe(writer)
+    // TODO remove this from this function - separation of concerns, let the caller do the logging
     console.log(`${blobName} downloaded to ${file}`)
 
   }
