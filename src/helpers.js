@@ -43,6 +43,15 @@ async function readFile(filePath) {
 }
 
 /**
+ * Asynchronously writes input to filename.
+ * @param {string} filePath fully qualified path and filename
+ * @returns any
+ */
+async function writeFile(filePath,data) {
+  return fs.writeFileSync(filePath,data,{ encoding: 'utf8' });
+}
+
+/**
  * Asynchronously reads the contents of a directory and returns the filenames as an array. Optionally, 
  * filters by the extension
  * @param {String} directory Path to the directory
@@ -138,6 +147,21 @@ const getResourceId = (url) => {
   return id
 }
 
+
+// [Node.js only] A helper method used to read a Node.js readable stream into a Buffer
+async function streamToBuffer(readableStream) {
+  return new Promise((resolve, reject) => {
+    const chunks = [];
+    readableStream.on("data", (data) => {
+      chunks.push(data instanceof Buffer ? data : Buffer.from(data));
+    });
+    readableStream.on("end", () => {
+      resolve(Buffer.concat(chunks));
+    });
+    readableStream.on("error", reject);
+  });
+}
+
 module.exports = {
     getEpochMillis,
     getResourceId,
@@ -146,7 +170,9 @@ module.exports = {
     readFile,
     listFiles,
     sparkline,
+    streamToBuffer,
     stripNewLines,
     toTitleCase,
-    unixTimestamp
+    unixTimestamp,
+    writeFile
 }

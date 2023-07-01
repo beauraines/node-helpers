@@ -1,6 +1,8 @@
 const azure = require('azure-storage');
 const dayjs = require('dayjs')
-const { QueueClient, StorageSharedKeyCredential } = require("@azure/storage-queue");
+const { streamToBuffer } = require('./helpers.js')
+const { BlobServiceClient, StorageSharedKeyCredential } = require("@azure/storage-blob");
+const { QueueClient } = require("@azure/storage-queue");
 var path = require('path');
 
 /**
@@ -124,6 +126,7 @@ getStorageQueueSignedURL(queueUrl,options) {
    * @param {string} blobName The name of the blob to generate the token
    * @returns {string} the signed URL for the blob
    */
+    //TODO migrate to @azure/storage-blob
   generateBlobSignedUrl(containerName, blobName) {
 
     const sharedAccessPolicy = {
@@ -147,6 +150,7 @@ getStorageQueueSignedURL(queueUrl,options) {
    * @param {string} containerName the container to which the file will be uploaded
    * @param {string} file The path the the local file to upload to the container
    */
+  //TODO migrate to @azure/storage-blob
   uploadBlobFromFile(containerName,file) {
     const blobService = azure.createBlobService(this.storageAccountName, this.storageAccountKey, this.host('blob',this.cloudName));
     const options = {
@@ -161,6 +165,56 @@ getStorageQueueSignedURL(queueUrl,options) {
         console.log(`${response.name} uploaded to ${response.container} container`)
       }
     });
+  }
+
+  /**
+   * Downloads a blob to a local file
+   * 
+   * @param {string} containerName the name of the container to download the blob from
+   * @param {string} blob The blob to download
+   * @param {string} file The path to the location to write the file
+   */
+  async downloadBlobToFile(containerName,blobName,file) {
+    const blobServiceClient = new BlobServiceClient(
+      this.host('blob',this.cloudName),
+      new StorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+    );
+    const containerClient = blobServiceClient.getContainerClient(containerName);
+    const blobClient = containerClient.getBlobClient(blobName);
+
+    const downloadBlockBlobResponse = await blobClient.download();
+    let writer = fs.createWriteStream(file) 
+    downloadBlockBlobResponse.readableStreamBody.pipe(writer)
+    console.log(`${blobName} downloaded to ${file}`)
+
+  }
+
+  /**
+   * Gets a blob and returns the content. The idea is that you can get a blob without 
+   * having to save it to a file and then re-read it. This may be limited in that it 
+   * can only deal with non-binary content.
+   * 
+   * @param {string} containerName the container to get the blob from
+   * @param {string} blobName the name of the blob to get
+   * @returns {string} the downloaded blob as 
+   */
+  async getBlob(containerName,blobName) {
+    const blobServiceClient = new BlobServiceClient(
+      this.host('blob',this.cloudName),
+      new StorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+    );
+    const containerClient = blobServiceClient.getContainerClient(containerName);
+    const blobClient = containerClient.getBlobClient(blobName);
+
+     // Get blob content from position 0 to the end
+    // In Node.js, get downloaded data by accessing downloadBlockBlobResponse.readableStreamBody
+    const downloadBlockBlobResponse = await blobClient.download();
+    const downloaded = (
+      await streamToBuffer(downloadBlockBlobResponse.readableStreamBody)
+    ).toString(); // FIXME - what happens with binary content?
+    // console.log("Downloaded blob content:", downloaded);
+    return downloaded
+
   }
 
 }
