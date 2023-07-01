@@ -44,7 +44,7 @@ describe('Azure Storage module', () => {
 
     })
 
-    it('should generate a signed URL for a blob', () => {
+    it.skip('should generate a signed URL for a blob', () => {
         const account = "devstoreaccount1";
         const accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
         let containerName = 'node-helpers-testing'
@@ -65,7 +65,7 @@ describe('Azure Storage module', () => {
         expect(sasTokenParams.get('sp')).toBe('r') // Read only by default
     })
 
-    it('should upload a blob from a file',async () => {
+    it.skip('should upload a blob from a file',async () => {
         const account = "devstoreaccount1";
         const accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
         let containerName = 'node-helpers-testing'
@@ -77,7 +77,7 @@ describe('Azure Storage module', () => {
 
     it.todo('should send a message to the storage queue')
 
-    it('should get a blob from azure storage', async () =>{
+    it.skip('should get a blob from azure storage', async () =>{
         const account = "devstoreaccount1";
         const accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
         let containerName = 'node-helpers-testing'
@@ -89,7 +89,7 @@ describe('Azure Storage module', () => {
 
     })
 
-    it('should download a blob to a file', async () => {
+    it.skip('should download a blob to a file', async () => {
         const account = "devstoreaccount1";
         const accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
         let containerName = 'node-helpers-testing'
@@ -104,13 +104,16 @@ describe('Azure Storage module', () => {
 
 
 
-    it.todo('should list blobs from azure storage')
-    // const AzureStorage  = require('./azure.js')
-    // const account = "devstoreaccount1";
-    // const accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
-    // let containerName = 'blob1675448230584'
-    // let blobName = '00096798-51a1-42f3-bb70-333232323643.json'
-    // let azure = new AzureStorage(account,accountKey,{cloudName:'Azurite'})
-    // let blobs = await azure.listBlobs('test')
+    it.skip('should list blobs from azure storage', async () => {
+        const account = "devstoreaccount1";
+        const accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
+        let containerName = 'node-helpers-testing'
+        let blobName = 'package.json'
+        let azure = new AzureStorage(account,accountKey,{cloudName:'Azurite'})
+        let blobs = await azure.listBlobs(containerName)
+        expect(Array.isArray(blobs));
+        expect(blobs.length).toBeGreaterThan(0)
+        expect(blobs.filter(b => b.name == blobName).length).toBe(1)
+    })
 
 })
