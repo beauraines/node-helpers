@@ -217,6 +217,29 @@ getStorageQueueSignedURL(queueUrl,options) {
 
   }
 
+  /**
+   * Lists the blobs in a specified container, returning an array of the BlobItem object
+   * 
+   * @param {string} containerName 
+   * @returns Blob[] 
+   */
+  async listBlobs(containerName) {
+    const blobServiceClient = new BlobServiceClient(
+      this.host('blob',this.cloudName),
+      new StorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+    );
+    const containerClient = blobServiceClient.getContainerClient(containerName);
+    let i = 1;
+    let blobs = []
+    for await (const blob of containerClient.listBlobsFlat()) {
+      blobs.push(blob)
+    }
+
+    return blobs
+
+  }
+
+
 }
 
 module.exports = AzureStorage
