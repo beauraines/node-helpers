@@ -43,6 +43,15 @@ async function readFile(filePath) {
 }
 
 /**
+ * Asynchronously writes input to filename.
+ * @param {string} filePath fully qualified path and filename
+ * @returns any
+ */
+async function writeFile(filePath,data) {
+  return fs.writeFileSync(filePath,data,{ encoding: 'utf8' });
+}
+
+/**
  * Asynchronously reads the contents of a directory and returns the filenames as an array. Optionally, 
  * filters by the extension
  * @param {String} directory Path to the directory
@@ -148,5 +157,6 @@ module.exports = {
     sparkline,
     stripNewLines,
     toTitleCase,
-    unixTimestamp
+    unixTimestamp,
+    writeFile
 }
