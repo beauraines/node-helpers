@@ -6,7 +6,9 @@
   "scripts": {
     "test": "jest",
     "release": "standard-version",
-    "should-release": "should-release"
+    "should-release": "should-release",
+    "lint": "eslint '*/**.js'",
+    "lint:fix": "eslint '*/**.js' --fix"
   },
   "author": "beau.raines@gmail.com",
   "license": "ISC",
