@@ -172,6 +172,21 @@ getStorageQueueSignedURL(queueUrl,options) {
    * @param {string} blob The blob to download
    * @param {string} file The path to the location to write the file
    */
+  async downloadBlobToFile(containerName,blobName,file) {
+    const blobServiceClient = new BlobServiceClient(
+      this.host('blob',this.cloudName),
+      new StorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+    );
+    const containerClient = blobServiceClient.getContainerClient(containerName);
+    const blobClient = containerClient.getBlobClient(blobName);
+
+    const downloadBlockBlobResponse = await blobClient.download();
+    let writer = fs.createWriteStream(file) 
+    downloadBlockBlobResponse.readableStreamBody.pipe(writer)
+    console.log(`${blobName} downloaded to ${file}`)
+
+  }
+
   /**
    * Gets a blob and returns the content. The idea is that you can get a blob without 
    * having to save it to a file and then re-read it. This may be limited in that it 
