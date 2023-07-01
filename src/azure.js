@@ -126,6 +126,7 @@ getStorageQueueSignedURL(queueUrl,options) {
    * @param {string} blobName The name of the blob to generate the token
    * @returns {string} the signed URL for the blob
    */
+    //TODO migrate to @azure/storage-blob
   generateBlobSignedUrl(containerName, blobName) {
 
     const sharedAccessPolicy = {
@@ -149,6 +150,7 @@ getStorageQueueSignedURL(queueUrl,options) {
    * @param {string} containerName the container to which the file will be uploaded
    * @param {string} file The path the the local file to upload to the container
    */
+  //TODO migrate to @azure/storage-blob
   uploadBlobFromFile(containerName,file) {
     const blobService = azure.createBlobService(this.storageAccountName, this.storageAccountKey, this.host('blob',this.cloudName));
     const options = {
