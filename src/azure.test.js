@@ -1,5 +1,9 @@
+const dayjs = require('dayjs')
+const { fileExists } = require('./helpers.js')
 const AzureStorage  = require('./azure.js')
-
+const os = require('os');
+const path = require('path');
+  
 describe('Azure Storage module', () => {
 
     it('should be created with default values', () => {
@@ -42,8 +46,75 @@ describe('Azure Storage module', () => {
 
     })
 
-    it.todo('should generate a signed URL for a blob')
-    it.todo('should upload a blob from a file')
+    it.skip('should generate a signed URL for a blob', () => {
+        const account = "devstoreaccount1";
+        const accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
+        let containerName = 'node-helpers-testing'
+        let blobName = 'package.json'
+
+        let azure = new AzureStorage(account,accountKey,{cloudName:'Azurite'})
+        const options = {
+            tokenExpiry: 42
+        }
+        const signedUrl = azure.generateBlobSignedUrl(containerName,blobName,options)
+        let url = new URL(signedUrl)
+        const sasTokenParams = url.searchParams;
+
+        expect(signedUrl).toContain(azure.host('blob','Azurite'))
+        expect(dayjs(sasTokenParams.get('st')).isBefore(dayjs()))
+        expect(dayjs(sasTokenParams.get('se')).isAfter(dayjs()))
+        expect(dayjs(sasTokenParams.get('st')).add(azure.tokenExpiry).isSame(dayjs(sasTokenParams.get('se'))))
+        expect(sasTokenParams.get('sp')).toBe('r') // Read only by default
+    })
+
+    it.skip('should upload a blob from a file',async () => {
+        const account = "devstoreaccount1";
+        const accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
+        let containerName = 'node-helpers-testing'
+        let file = 'package.json'
+        let azure = new AzureStorage(account,accountKey,{cloudName:'Azurite'})
+        let success = await azure.uploadBlobFromFile(containerName,file)
+        expect(success)
+    })
+
     it.todo('should send a message to the storage queue')
+
+    it.skip('should get a blob from azure storage', async () =>{
+        const account = "devstoreaccount1";
+        const accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
+        let containerName = 'node-helpers-testing'
+        let blobName = 'package.json'
+        let azure = new AzureStorage(account,accountKey,{cloudName:'Azurite'})
+        let file = await azure.getBlob(containerName,blobName)
+        file = JSON.parse(file)
+        expect(file.name).toBe("@beauraines/node-helpers")
+
+    })
+
+    it.skip('should download a blob to a file', async () => {
+        const account = "devstoreaccount1";
+        const accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
+        let containerName = 'node-helpers-testing'
+        let blobName = 'package.json'
+        let file = path.join(os.tmpdir(),`package.${dayjs().unix()}.json`)
+        let azure = new AzureStorage(account,accountKey,{cloudName:'Azurite'})
+        await azure.downloadBlobToFile(containerName,blobName,file)
+        expect(fileExists(file))
+    })
+
+
+
+
+    it.skip('should list blobs from azure storage', async () => {
+        const account = "devstoreaccount1";
+        const accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
+        let containerName = 'node-helpers-testing'
+        let blobName = 'package.json'
+        let azure = new AzureStorage(account,accountKey,{cloudName:'Azurite'})
+        let blobs = await azure.listBlobs(containerName)
+        expect(Array.isArray(blobs));
+        expect(blobs.length).toBeGreaterThan(0)
+        expect(blobs.filter(b => b.name == blobName).length).toBe(1)
+    })
 
 })
