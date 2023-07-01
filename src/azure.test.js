@@ -1,7 +1,9 @@
 const dayjs = require('dayjs')
 const { fileExists } = require('./helpers.js')
 const AzureStorage  = require('./azure.js')
-
+const os = require('os');
+const path = require('path');
+  
 describe('Azure Storage module', () => {
 
     it('should be created with default values', () => {
@@ -94,8 +96,7 @@ describe('Azure Storage module', () => {
         const accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
         let containerName = 'node-helpers-testing'
         let blobName = 'package.json'
-        // TODO move this to the os temp dir
-        let file = `/tmp/package.${dayjs().add()}.json`
+        let file = path.join(os.tmpdir(),`package.${dayjs().unix()}.json`)
         let azure = new AzureStorage(account,accountKey,{cloudName:'Azurite'})
         await azure.downloadBlobToFile(containerName,blobName,file)
         expect(fileExists(file))
