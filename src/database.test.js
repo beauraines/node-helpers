@@ -4,6 +4,7 @@ const sqlite3 = require('sqlite3');
 const helpers = require('./helpers');
 const { getDBConnection } = require('./database');
 const path = require('path');
+const process = require('node:process')
 
 jest.mock('sqlite');
 jest.mock('os');
@@ -37,6 +38,7 @@ describe('database module', () => {
         
         const file = undefined;
         // call function with null file
+        // eslint-disable-next-line no-unused-vars
         const db = await getDBConnection(file)
 
         // In theory you should mock the open function and what it returns.
@@ -59,6 +61,7 @@ describe('database module', () => {
 
         const expectedDefaultFile = path.join(os.homedir(),'BurnDownStatus.db')
 
+        // eslint-disable-next-line no-unused-vars
         const db = await getDBConnection(expectedDefaultFile)
 
         expect(sqlite.open).toHaveBeenCalledWith({

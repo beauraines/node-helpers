@@ -112,6 +112,7 @@ describe('Azure Storage module', () => {
         let blobName = 'package.json'
         let azure = new AzureStorage(account,accountKey,{cloudName:'Azurite'})
         let blobs = await azure.listBlobs(containerName)
+        console.log(blobs)
         expect(Array.isArray(blobs));
         expect(blobs.length).toBeGreaterThan(0)
         expect(blobs.filter(b => b.name == blobName).length).toBe(1)

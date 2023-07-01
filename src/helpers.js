@@ -115,6 +115,7 @@ function getEpochMillis() {
  * @param {object} options Optional options for display, e.g display min,max,last, range coercion
  * @returns 
  */
+// eslint-disable-next-line no-unused-vars
 function sparkline(data,label,options) {
   // TODO add handling if data is object
   // let open = last30days.map( x=> x.open_count)
@@ -153,9 +154,11 @@ async function streamToBuffer(readableStream) {
   return new Promise((resolve, reject) => {
     const chunks = [];
     readableStream.on("data", (data) => {
+      // eslint-disable-next-line no-undef
       chunks.push(data instanceof Buffer ? data : Buffer.from(data));
     });
     readableStream.on("end", () => {
+      // eslint-disable-next-line no-undef
       resolve(Buffer.concat(chunks));
     });
     readableStream.on("error", reject);

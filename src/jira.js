@@ -8,6 +8,7 @@ const fetch = require('node-fetch');
  * @returns String
  */
 function credentialsToToken(email,token) {
+    // eslint-disable-next-line no-undef
     let bearerToken = Buffer.from(`${email}:${token}`).toString('base64');
     return bearerToken
 }

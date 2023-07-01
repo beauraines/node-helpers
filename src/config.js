@@ -47,7 +47,7 @@ const validateConfig = async (configFile, configProps) => {
     config = JSON.parse(config);
     // Check for properties
     let validConfig = true
-    for (key of configProps) {
+    for (const key of configProps) {
         validConfig = config[key] ? true : false
     }
 
@@ -67,7 +67,7 @@ const validateConfig = async (configFile, configProps) => {
 const createConfig = async (configFile,configProps) => {
     configFile = path.join(homedir(),configFile)
     let config = {}
-    for (key of configProps) {
+    for (const key of configProps) {
         config[key] = ''
     }
     fs.writeFileSync(configFile,JSON.stringify(config))
