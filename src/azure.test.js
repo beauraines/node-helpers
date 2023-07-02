@@ -46,7 +46,7 @@ describe('Azure Storage module', () => {
 
     })
 
-    it.skip('should generate a signed URL for a blob', () => {
+    it.skip('should generate a signed URL for a blob', async () => {
         const account = "devstoreaccount1";
         const accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
         let containerName = 'node-helpers-testing'
@@ -56,7 +56,7 @@ describe('Azure Storage module', () => {
         const options = {
             tokenExpiry: 42
         }
-        const signedUrl = azure.generateBlobSignedUrl(containerName,blobName,options)
+        const signedUrl = await azure.generateBlobSignedUrl(containerName,blobName,options)
         let url = new URL(signedUrl)
         const sasTokenParams = url.searchParams;
 
