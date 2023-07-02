@@ -1,6 +1,6 @@
 {
   "name": "@beauraines/node-helpers",
-  "version": "2.12.0",
+  "version": "2.13.0",
   "description": "Collection of node helpers",
   "main": "index.js",
   "scripts": {
