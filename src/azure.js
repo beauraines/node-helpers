@@ -1,4 +1,3 @@
-const azure = require('azure-storage');
 const dayjs = require('dayjs')
 const fs = require('fs');
 const { streamToBuffer } = require('./helpers.js')
@@ -127,22 +126,26 @@ getStorageQueueSignedURL(queueUrl,options) {
    * @param {string} blobName The name of the blob to generate the token
    * @returns {string} the signed URL for the blob
    */
-    //TODO migrate to @azure/storage-blob
-  generateBlobSignedUrl(containerName, blobName) {
+  async generateBlobSignedUrl(containerName, blobName) {
 
-    const sharedAccessPolicy = {
-        AccessPolicy: {
-            Permissions: azure.BlobUtilities.SharedAccessPermissions.READ,
-            Start: new Date(),
-            Expiry: azure.date.minutesFromNow(this.tokenExpiry),
-        },
-    };
+    const blobServiceClient = new BlobServiceClient(
+      this.host('blob',this.cloudName),
+      new StorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+    );
+    const containerClient = blobServiceClient.getContainerClient(containerName);
+    const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+    
+    const now = dayjs()
 
-    const blobService = azure.createBlobService(this.storageAccountName, this.storageAccountKey, this.host('blob',this.cloudName));
-    const sasToken = blobService.generateSharedAccessSignature(containerName, blobName, sharedAccessPolicy);
-    const blobUrl = blobService.getUrl(containerName, blobName, sasToken);
+    const options = {
+      permissions: 'r',
+      startsOn: now.toDate(), 
+      expiresOn: now.add(this.tokenExpiry,'minutes')
+    }
 
-    return blobUrl;
+    const signedUrl = await blockBlobClient.generateSasUrl(options)
+    console.log(signedUrl)
+    return signedUrl;
   }
 
   /**
@@ -152,25 +155,34 @@ getStorageQueueSignedURL(queueUrl,options) {
    * @param {string} file The path the the local file to upload to the container
    * @returns {boolean} Success or failure to upload
    */
-  //TODO migrate to @azure/storage-blob
-  uploadBlobFromFile(containerName,file) {
-    const blobService = azure.createBlobService(this.storageAccountName, this.storageAccountKey, this.host('blob',this.cloudName));
+  async uploadBlobFromFile(containerName,file) {
+    const blobServiceClient = new BlobServiceClient(
+      this.host('blob',this.cloudName),
+      new StorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+    );
+    const containerClient = blobServiceClient.getContainerClient(containerName);
+    
     const options = {
-        access: 'container'
+      access: 'container'
     };
     
     let blobName = path.basename(file)
-    blobService.createBlockBlobFromLocalFile(containerName,blobName,file,options,function(error,response) {
-      if( error) {
-        console.error(error.message)
-        return false
-      } else {
-        // TODO remove this from this function - separation of concerns, let the caller do the logging
-        console.log(`${response.name} uploaded to ${response.container} container`)
-        return true
-      }
-    });
+    const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+    try {
+      // eslint-disable-next-line no-unused-vars
+      const response = await blockBlobClient.uploadFile(file,options)
+      // TODO remove this from this function - separation of concerns, let the caller do the logging
+      console.log(`${file} uploaded to ${containerName} container as ${blobName}`)
+      return true
+    } catch (error) {
+      console.error(error.message)
+      return false
+    }
+
+
+      
   }
+
 
   /**
    * Downloads a blob to a local file
