@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0](https://github.com/beauraines/node-helpers/compare/v2.7.1...v4.0.0) (2023-07-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* **azure:** - `generateBlobSignedUrl` is now asynchronous and must be called with `await`
+
+Updates unit test to run async
+
+### Features
+
+* adds download blob from azure helper ([08a1571](https://github.com/beauraines/node-helpers/commit/08a1571ab18b9eeeb1273e05b5abed95a7300457))
+* **azure:** adds list blob command ([#42](https://github.com/beauraines/node-helpers/issues/42)) ([e60219b](https://github.com/beauraines/node-helpers/commit/e60219bf75acea70defde417a07219a1508b7c61))
+* **azure:** new getBlob function ([876716b](https://github.com/beauraines/node-helpers/commit/876716b8256b090a2eadf45c1d03b097362b2eb2))
+* **helper:** adds file write helper ([9e727e9](https://github.com/beauraines/node-helpers/commit/9e727e9ffe51525d2a73fa66ea933c1804304729))
+
+
+### Bug Fixes
+
+* **deps:** bump azure-devops-node-api from 12.0.0 to 12.1.0 ([#37](https://github.com/beauraines/node-helpers/issues/37)) ([b71396d](https://github.com/beauraines/node-helpers/commit/b71396d28d089a1f8919ad53363a4759f61b1e52))
+* **deps:** bump node-fetch from 2.6.11 to 2.6.12 ([786f458](https://github.com/beauraines/node-helpers/commit/786f458fbf0c03fd9462ab67db558c5646afb62e))
+* **deps:** bump xml2js and @azure/core-http ([#46](https://github.com/beauraines/node-helpers/issues/46)) ([83b0c60](https://github.com/beauraines/node-helpers/commit/83b0c6077e70120a7e24519f7a03740578236969))
+* increment version number ([c42e3ae](https://github.com/beauraines/node-helpers/commit/c42e3aebf1373b8820b18ced1b88617bbfe69da6))
+
+
+* **azure:** migrates remaining methods to @azure/storage blob ([#45](https://github.com/beauraines/node-helpers/issues/45)) ([0b11af0](https://github.com/beauraines/node-helpers/commit/0b11af00b2fb11b3e99a6190fd7848cd7563901c))
+
 ### [2.7.1](https://github.com/beauraines/node-helpers/compare/v2.7.0...v2.7.1) (2023-06-14)
 
 ## [2.7.0](https://github.com/beauraines/node-helpers/compare/v2.6.1...v2.7.0) (2023-06-14)
