@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.1](https://github.com/beauraines/node-helpers/compare/v4.0.0...v4.0.1) (2023-07-08)
+
+
+### Bug Fixes
+
+* **config:** creating config will not overwrite exisitng configuratio file ([#52](https://github.com/beauraines/node-helpers/issues/52)) ([bad664c](https://github.com/beauraines/node-helpers/commit/bad664c6bf59c5de7404f5b9113951c2fc107c99))
+
 ## [4.0.0](https://github.com/beauraines/node-helpers/compare/v2.7.1...v4.0.0) (2023-07-02)
 
 
