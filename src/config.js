@@ -63,14 +63,22 @@ const validateConfig = async (configFile, configProps) => {
  * @param {string} configFile file name for the JSON config file, from the users home directory
  * @param {Array} configProps an array of properties that defines a valid config file
  * 
+ * @returns {string} Fully qualified path to configuration file
+ * 
+ * @throws {error} if the file already exists
+ * 
  */
 const createConfig = async (configFile,configProps) => {
     configFile = path.join(homedir(),configFile)
+    if ( await fileExists(configFile) ) {
+        throw Error('File already exists. Will not overwrite')
+    }
     let config = {}
     for (const key of configProps) {
         config[key] = ''
     }
-    fs.writeFileSync(configFile,JSON.stringify(config))
+    fs.writeFileSync(configFile,JSON.stringify(config, null, 2))
+    return configFile
 }
 
 module.exports = {
