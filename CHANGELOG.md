@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.8](https://github.com/beauraines/node-helpers/compare/v4.0.4...v4.0.8) (2023-12-29)
+
+
+### Bug Fixes
+
+* **deps:** bump @azure/storage-blob from 12.14.0 to 12.15.0 ([3253e14](https://github.com/beauraines/node-helpers/commit/3253e14673cf645abcb0c964576bd7046b97fd29))
+* **deps:** bump @azure/storage-blob from 12.15.0 to 12.16.0 ([5a058ce](https://github.com/beauraines/node-helpers/commit/5a058ce3baffd1bd79fe434ebd082ccba7fed667))
+* **deps:** bump @azure/storage-blob from 12.16.0 to 12.17.0 ([8d17b3c](https://github.com/beauraines/node-helpers/commit/8d17b3ce1ef1e19f3ba804c6a391c279dcd13b86))
+* **deps:** bump @azure/storage-queue from 12.13.0 to 12.14.0 ([317a87c](https://github.com/beauraines/node-helpers/commit/317a87c2fed24f3180b080a3fe0f1986fc886c64))
+* **deps:** bump @azure/storage-queue from 12.14.0 to 12.15.0 ([1480375](https://github.com/beauraines/node-helpers/commit/14803753cee6c9b21eb4912d9ea08f772fcbee68))
+* **deps:** bump @azure/storage-queue from 12.15.0 to 12.16.0 ([883fee4](https://github.com/beauraines/node-helpers/commit/883fee4bc959e1e02ea14e44a43d1cfaa2b40bea))
+* **deps:** bump dayjs from 1.11.9 to 1.11.10 ([69be1aa](https://github.com/beauraines/node-helpers/commit/69be1aace097f6d6e244874315e65d2429353ee1))
+* **deps:** bump node-fetch from 2.6.12 to 2.7.0 ([727c31c](https://github.com/beauraines/node-helpers/commit/727c31c4d789797f37b07af98b5aa00f77fe10f4))
+* **deps:** bump sqlite from 4.2.1 to 5.0.1 ([#54](https://github.com/beauraines/node-helpers/issues/54)) ([1066aec](https://github.com/beauraines/node-helpers/commit/1066aec108fe771c268e76975fb0151bf5f1ef40))
+* **deps:** bump sqlite from 5.0.1 to 5.1.1 ([30f2b0e](https://github.com/beauraines/node-helpers/commit/30f2b0ef9687d20ef2a58778a43ba43251901a91))
+
 ### [4.0.4](https://github.com/beauraines/node-helpers/compare/v4.0.1...v4.0.4) (2023-07-16)
 
 
