@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.9](https://github.com/beauraines/node-helpers/compare/v4.0.8...v4.0.9) (2024-01-06)
+
+
+### Bug Fixes
+
+* **deps:** bump sqlite3 from 5.1.6 to 5.1.7 ([b89b8ab](https://github.com/beauraines/node-helpers/commit/b89b8ab442b76c5f2df558c7d5b696b1db12cd62))
+
 ### [4.0.8](https://github.com/beauraines/node-helpers/compare/v4.0.4...v4.0.8) (2023-12-29)
 
 
