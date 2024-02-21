@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.12](https://github.com/beauraines/node-helpers/compare/v4.0.11...v4.0.12) (2024-02-21)
+
+
+### Bug Fixes
+
+* **deps:** bump ip from 2.0.0 to 2.0.1 ([#97](https://github.com/beauraines/node-helpers/issues/97)) ([253f8e3](https://github.com/beauraines/node-helpers/commit/253f8e37356790f500af623cc320829a4bf043a9))
+
 ### [4.0.11](https://github.com/beauraines/node-helpers/compare/v4.0.10...v4.0.11) (2024-02-11)
 
 
