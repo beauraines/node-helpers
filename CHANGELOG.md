@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.13](https://github.com/beauraines/node-helpers/compare/v4.0.12...v4.0.13) (2024-03-10)
+
+
+### Bug Fixes
+
+* **deps:** bump azure-devops-node-api from 12.4.0 to 12.5.0 ([#100](https://github.com/beauraines/node-helpers/issues/100)) ([aef0f72](https://github.com/beauraines/node-helpers/commit/aef0f72c64d2d5c8ae7ad63ac4a326a6f1c6c34e))
+
 ### [4.0.12](https://github.com/beauraines/node-helpers/compare/v4.0.11...v4.0.12) (2024-02-21)
 
 
