@@ -1,6 +1,7 @@
 const azdev = require('azure-devops-node-api')
 const {getResourceId} = require('./helpers.js')
 const {readConfig } = require('./config.js')
+// eslint-disable-next-line no-redeclare
 const fetch = require('node-fetch');
 
 // get Current iteration
