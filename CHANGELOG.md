@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.26](https://github.com/beauraines/node-helpers/compare/v4.0.25...v4.0.26) (2024-07-31)
+
+
+### Bug Fixes
+
+* **deps:** bump fast-xml-parser from 4.4.0 to 4.4.1 ([#129](https://github.com/beauraines/node-helpers/issues/129)) ([0d1376e](https://github.com/beauraines/node-helpers/commit/0d1376ee431e00809cc603f624ddc9ee4370da65))
+
 ### [4.0.25](https://github.com/beauraines/node-helpers/compare/v4.0.24...v4.0.25) (2024-07-27)
 
 
