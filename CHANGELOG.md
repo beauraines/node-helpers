@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.27](https://github.com/beauraines/node-helpers/compare/v4.0.26...v4.0.27) (2024-08-01)
+
+
+### Bug Fixes
+
+* **deps:** bump @azure/storage-queue from 12.22.0 to 12.23.0 ([#127](https://github.com/beauraines/node-helpers/issues/127)) ([3856810](https://github.com/beauraines/node-helpers/commit/3856810067aa15ce5cb98ad24e7ef808a10545c2))
+
 ### [4.0.26](https://github.com/beauraines/node-helpers/compare/v4.0.25...v4.0.26) (2024-07-31)
 
 
