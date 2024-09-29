@@ -1,11 +1,11 @@
 {
   "name": "@beauraines/node-helpers",
-  "version": "4.0.37",
+  "version": "4.0.38",
   "description": "Collection of node helpers",
   "main": "index.js",
-  "repository" : {
-  "type": "git",
-  "url": "git+https://github.com/beauraines/node-helpers.git"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beauraines/node-helpers.git"
   },
   "scripts": {
     "test": "jest",
