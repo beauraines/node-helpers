@@ -1,5 +1,6 @@
 const fs = require('fs');
 const sparkly = require('sparkly')
+const gunzip = require('gunzip-maybe');
 
 /**
  * Converts a string to Title Case, using whitespace as the delimiter
@@ -165,17 +166,24 @@ async function streamToBuffer(readableStream) {
   });
 }
 
+// Function to decompress a gzipped file and return a stream
+const decompressFile = (filePath) => {
+  return fs.createReadStream(filePath).pipe(gunzip());
+};
+
+
 module.exports = {
-    getEpochMillis,
-    getResourceId,
-    fileExists,
-    groupAndSum,
-    readFile,
-    listFiles,
-    sparkline,
-    streamToBuffer,
-    stripNewLines,
-    toTitleCase,
-    unixTimestamp,
-    writeFile
+  decompressFile,
+  getEpochMillis,
+  getResourceId,
+  fileExists,
+  groupAndSum,
+  readFile,
+  listFiles,
+  sparkline,
+  streamToBuffer,
+  stripNewLines,
+  toTitleCase,
+  unixTimestamp,
+  writeFile
 }
