@@ -21,6 +21,7 @@
     "@azure/storage-queue": "^12.11.0",
     "azure-devops-node-api": "^14.0.1",
     "dayjs": "^1.11.7",
+    "gunzip-maybe": "^1.4.2",
     "node-fetch": "^2.6.7",
     "sparkly": "^5.0.0",
     "sqlite": "^5.0.1",
