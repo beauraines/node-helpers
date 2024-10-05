@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.1.0](https://github.com/beauraines/node-helpers/compare/v4.0.39...v4.1.0) (2024-10-05)
+
+
+### Features
+
+* **Azure Storage and helpers:** getBinaryBlob and decompress gzip files functions ([#147](https://github.com/beauraines/node-helpers/issues/147)) ([ec156af](https://github.com/beauraines/node-helpers/commit/ec156afb043a70e8f78beb7d276e35b643ab6668)), closes [#146](https://github.com/beauraines/node-helpers/issues/146)
+
 ### [4.0.39](https://github.com/beauraines/node-helpers/compare/v4.0.38...v4.0.39) (2024-10-05)
 
 ### [4.0.38](https://github.com/beauraines/node-helpers/compare/v4.0.37...v4.0.38) (2024-09-29)
