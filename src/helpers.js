@@ -106,6 +106,7 @@ function getEpochMillis() {
   return Date.now()
 }
 
+
 // TODO Add unit test
 // Expected output last 30 days [1,5] ▁▂▄▆█ 5 from [1,2,3,4,5]
 /**
@@ -129,6 +130,8 @@ function sparkline(data,label,options) {
   // coerces the minimum value to zero because the mimimum option is only used for range validation, 
   // not display https://github.com/sindresorhus/sparkly/blob/9e33eaff891c41e8fb8c8883f62e9821729a9882/index.js#L15
   // sparkly(open,{minimum:27,maximum:50})
+
+  // TODO add option to not display labels issue #148
   return `${label} [${minValue},${maxValue}] ${sparkly(data.map( x=> x- minValue))} ${lastValue}`
 }
 
