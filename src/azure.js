@@ -210,8 +210,7 @@ getStorageQueueSignedURL(queueUrl,options) {
 
   /**
    * Gets a blob and returns the content. The idea is that you can get a blob without 
-   * having to save it to a file and then re-read it. This may be limited in that it 
-   * can only deal with non-binary content.
+   * having to save it to a file and then re-read it. This cannot handle binary data
    * 
    * @param {string} containerName the container to get the blob from
    * @param {string} blobName the name of the blob to get
@@ -232,6 +231,30 @@ getStorageQueueSignedURL(queueUrl,options) {
       await streamToBuffer(downloadBlockBlobResponse.readableStreamBody)
     ).toString(); // FIXME - what happens with binary content?
     // console.log("Downloaded blob content:", downloaded);
+    return downloaded
+
+  }
+
+
+  /**
+   * Gets a blob and returns the content as a Buffer.
+   * 
+   * @param {string} containerName the container to get the blob from
+   * @param {string} blobName the name of the blob to get
+   * @returns {Buffer} the downloaded blob as 
+   */
+  async getBinaryBlob(containerName,blobName) {
+    const blobServiceClient = new BlobServiceClient(
+      this.host('blob',this.cloudName),
+      new StorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+    );
+    const containerClient = blobServiceClient.getContainerClient(containerName);
+    const blobClient = containerClient.getBlobClient(blobName);
+
+     // Get blob content from position 0 to the end
+    // In Node.js, get downloaded data by accessing downloadBlockBlobResponse.readableStreamBody
+    const downloadBlockBlobResponse = await blobClient.download();
+    const downloaded = await streamToBuffer(downloadBlockBlobResponse.readableStreamBody);
     return downloaded
 
   }
