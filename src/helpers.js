@@ -107,20 +107,24 @@ function getEpochMillis() {
 }
 
 
-// TODO Add unit test
-// Expected output last 30 days [1,5] ▁▂▄▆█ 5 from [1,2,3,4,5]
+
 /**
- * Generates a sparkline with labels
+ * Generates a sparkline optionally with labels
+ * 
+ * labelled sparkline includes a label, min, max and last value
+ *
+ * last 30 days [1,5] ▁▂▄▆█ 5
+ * 
+ * unlabled is just that ▁▂▄▆█
  * 
  * @param {array} data Array of values to plot in the sparkline
- * @param {string} label Text to display before sparkline
+ * @param {string} label Text to display before sparkline, if empty or null, will not display any labels
  * @param {object} options Optional options for display, e.g display min,max,last, range coercion
  * @returns 
  */
 // eslint-disable-next-line no-unused-vars
 function sparkline(data,label,options) {
   // TODO add handling if data is object
-  // let open = last30days.map( x=> x.open_count)
 
   // Assuming data is array
   const minValue = Math.min(...data)
@@ -131,8 +135,15 @@ function sparkline(data,label,options) {
   // not display https://github.com/sindresorhus/sparkly/blob/9e33eaff891c41e8fb8c8883f62e9821729a9882/index.js#L15
   // sparkly(open,{minimum:27,maximum:50})
 
-  // TODO add option to not display labels issue #148
-  return `${label} [${minValue},${maxValue}] ${sparkly(data.map( x=> x- minValue))} ${lastValue}`
+  data = data.map( x=> x- minValue)
+
+  let sparkline
+  if (label) {
+    sparkline = `${label} [${minValue},${maxValue}] ${sparkly(data)} ${lastValue}`
+  } else {
+    sparkline = sparkly(data)
+  }
+  return sparkline
 }
 
 /**

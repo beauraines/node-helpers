@@ -8,14 +8,19 @@ describe('helpers',()=> {
         expect(helper.toTitleCase(lowerString)).toBe(titleString);
     })
 
-    it('should return the correctly sparkline',()=>{
+    it('should return the correctly formatted sparkline',()=>{
         const expectedOutput = 'last 30 days [1,5] ▁▂▄▆█ 5'
         const input = [1,2,3,4,5]
         const label = 'last 30 days'
         expect(helper.sparkline(input,label)).toBe(expectedOutput)
-
     })
 
+    it('should return a sparkline with no additional labeling',()=>{
+        const expectedOutput = '▁▂▄▆█'
+        const input = [1,2,3,4,5]
+        const label = ''
+        expect(helper.sparkline(input,label)).toBe(expectedOutput)
+    })
 
 })
 
