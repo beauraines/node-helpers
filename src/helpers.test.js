@@ -22,5 +22,13 @@ describe('helpers',()=> {
         expect(helper.sparkline(input,label)).toBe(expectedOutput)
     })
 
+    it('should return a sparkline with no range coercion',()=>{
+        const expectedOutput = '▂▄▅▇█'
+        const input = [1,2,3,4,5]
+        const label = ''
+        const options = { coerceData: false }
+        expect(helper.sparkline(input,label, options)).toBe(expectedOutput)
+    })
+
 })
 

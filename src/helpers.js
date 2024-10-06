@@ -117,25 +117,40 @@ function getEpochMillis() {
  * 
  * unlabled is just that ▁▂▄▆█
  * 
+ * Options supported are
+ * 
+ * {
+ * coerceData: true, // coerces the minimum value to zero 
+ * }
+ * 
  * @param {array} data Array of values to plot in the sparkline
  * @param {string} label Text to display before sparkline, if empty or null, will not display any labels
  * @param {object} options Optional options for display, e.g display min,max,last, range coercion
+ * 
  * @returns 
  */
 // eslint-disable-next-line no-unused-vars
 function sparkline(data,label,options) {
-  // TODO add handling if data is object
 
+  options = {
+    coerceData: true,
+    ...options
+  }
+
+  // TODO add handling if data is object
   // Assuming data is array
   const minValue = Math.min(...data)
   const maxValue = Math.max(...data)
   const lastValue = data.slice(-1)[0]
 
-  // coerces the minimum value to zero because the mimimum option is only used for range validation, 
-  // not display https://github.com/sindresorhus/sparkly/blob/9e33eaff891c41e8fb8c8883f62e9821729a9882/index.js#L15
-  // sparkly(open,{minimum:27,maximum:50})
+  // This is the default behavior
+  if ( options.coerceData ) {
+    // coerces the minimum value to zero because the mimimum option is only used for range validation, 
+    // not display https://github.com/sindresorhus/sparkly/blob/9e33eaff891c41e8fb8c8883f62e9821729a9882/index.js#L15
+    // sparkly(open,{minimum:27,maximum:50})
+    data = data.map( x=> x- minValue)
+  }
 
-  data = data.map( x=> x- minValue)
 
   let sparkline
   if (label) {
