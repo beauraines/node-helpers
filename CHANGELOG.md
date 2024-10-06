@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.2.0](https://github.com/beauraines/node-helpers/compare/v4.1.1...v4.2.0) (2024-10-06)
+
+
+### Features
+
+* **sparkline:** option support for range coercion ([053b14d](https://github.com/beauraines/node-helpers/commit/053b14d1c7334691ea0ab97b3c24f719d05aeda0))
+* **sparkline:** optionally make a sparkline wiht out the label and descriptive stats ([379330c](https://github.com/beauraines/node-helpers/commit/379330c4f8fb8723b500f65de5a6ed247485d81f))
+
 ### [4.1.1](https://github.com/beauraines/node-helpers/compare/v4.1.0...v4.1.1) (2024-10-05)
 
 ## [4.1.0](https://github.com/beauraines/node-helpers/compare/v4.0.39...v4.1.0) (2024-10-05)
