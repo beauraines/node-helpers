@@ -101,7 +101,11 @@ class AzureStorage {
     }
   }
 
-  //TODO add docblock
+  /**
+   * Lists storage queues in the  storage account
+   * 
+   * @returns Array
+   */
   async listsQueues() {
     try {
     const queueServiceClient = new QueueServiceClient(
