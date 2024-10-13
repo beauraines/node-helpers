@@ -77,40 +77,52 @@ class AzureStorage {
    * @param {string} queueUrl The URL to the storage queue
    * @param {string} messageContent The message to send to the queue
    */
-  async sendMessageToQueue(queueUrl, messageContent,) {
+  async sendMessageToQueue(queueName, messageContent) {
     try {
-      const queueClient = new QueueClient(
-        queueUrl,
-        new StorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+      const queueServiceClient = new QueueServiceClient(
+        this.host('queue',this.cloudName),
+        new QueueStorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
       );
+
+      const queueClient = queueServiceClient.getQueueClient(queueName);
+        
       let queueOptions = {
         messageTimeToLive: this.queueMessageTTLSeconds
       };
-      let sendMessageResponse = await queueClient.sendMessage(messageContent, queueOptions);
+
+      let sendMessageResponse = await queueClient.sendMessage(messageContent,queueOptions);
+      // TODO maybe return the sendMessageResponse instead. Not necessarily a breaking change because this is already broken
       console.log(
         "Sent message successfully, service assigned message Id:", sendMessageResponse.messageId,
         "service assigned request Id:", sendMessageResponse.requestId
       );
     } catch (error) {
-      console.error(error.message)
+      console.log(error.message)
+    }
+  }
+
     }
   }
 
   /**
    * Gets a SAS token for the storage queue
    * .
-   * @param {string} queueUrl The URL to the storage queue
+   * @param {string} queueName The name of the storage queue
    * @param {object} options Should include `permissions: "raup"` or some combination thereof Any additional options supported. https://docs.microsoft.com/en-us/rest/api/storageservices/constructing-a-service-sas
    */
-getStorageQueueSignedURL(queueUrl,options) {
-    
-  const queueClient = new QueueClient(
-      queueUrl,
-      new StorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
-      )
-  
+getStorageQueueSignedURL(queueName,options) {
+  // TODO update this whole function
+  const queueServiceClient = new QueueServiceClient(
+    this.host('queue',this.cloudName),
+    new QueueStorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+  );
+
+  const queueClient = queueServiceClient.getQueueClient(queueName);
+ 
+  // TODO RangeError: Must provide 'permissions' and 'expiresOn' for Queue SAS generation when 'identifier' is not provided.
   options = {
       startsOn: dayjs().toDate(),
+      expiresOn: dayjs().add(this.tokenExpiry,'minutes'),
       ...options
   }
 
