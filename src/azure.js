@@ -101,8 +101,25 @@ class AzureStorage {
     }
   }
 
+  //TODO add docblock
+  async listsQueues() {
+    try {
+    const queueServiceClient = new QueueServiceClient(
+      this.host('queue',this.cloudName),
+      new QueueStorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+    );
+
+    let queues = []
+    for await (const queue of queueServiceClient.listQueues()) {
+        queues.push(queue)
     }
+
+    return queues;
+
+  } catch (error) {
+    console.log(error.message)
   }
+}
 
   /**
    * Gets a SAS token for the storage queue
