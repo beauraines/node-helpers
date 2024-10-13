@@ -16,6 +16,14 @@ function toTitleCase(str) {
     );
 }
 
+const toUpperSnakeCase = (str) => {
+    return str
+        .replace(/([a-z])([A-Z])/g, '$1_$2') // Add underscore before capital letters
+        .replace(/[^a-zA-Z0-9_]/g, '_') // Replace non-alphanumeric characters with underscore
+        .toUpperCase(); // Convert to uppercase
+}
+
+
 /**
  * Removes newline characters \r and/or \n from a string
  * @param {string} string to remove newlines from
@@ -213,6 +221,7 @@ module.exports = {
   streamToBuffer,
   stripNewLines,
   toTitleCase,
+  toUpperSnakeCase,
   unixTimestamp,
   writeFile
 }
