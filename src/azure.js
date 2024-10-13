@@ -129,13 +129,14 @@ class AzureStorage {
 }
 
   /**
-   * Gets a SAS token for the storage queue
+   * Gets a SAS URL for the storage queue
    * .
    * @param {string} queueName The name of the storage queue
    * @param {object} options Should include `permissions: "raup"` or some combination thereof Any additional options supported. https://docs.microsoft.com/en-us/rest/api/storageservices/constructing-a-service-sas
+   * 
+   * @returns {string} SAS URL for the specified queue
    */
 getStorageQueueSignedURL(queueName,options) {
-  // TODO update this whole function
   const queueServiceClient = new QueueServiceClient(
     this.host('queue',this.cloudName),
     new QueueStorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
@@ -143,11 +144,14 @@ getStorageQueueSignedURL(queueName,options) {
 
   const queueClient = queueServiceClient.getQueueClient(queueName);
  
-  // TODO RangeError: Must provide 'permissions' and 'expiresOn' for Queue SAS generation when 'identifier' is not provided.
   options = {
-      startsOn: dayjs().toDate(),
-      expiresOn: dayjs().add(this.tokenExpiry,'minutes'),
-      ...options
+    startsOn: dayjs().toDate(),
+    expiresOn: dayjs().add(this.tokenExpiry,'minutes'),
+    ...options
+  }
+  
+  if (!options.permissions || !options.expiresOn) {
+    throw new Error("Must provide 'permissions' and 'expiresOn' for Queue SAS generation when 'identifier' is not provided");    
   }
 
   return queueClient.generateSasUrl(options)
