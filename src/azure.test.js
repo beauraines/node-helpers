@@ -77,8 +77,6 @@ describe('Azure Storage module', () => {
         expect(success)
     })
 
-    it.todo('should send a message to the storage queue')
-
     it.skip('should get a blob from azure storage', async () =>{
         const account = "devstoreaccount1";
         const accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
@@ -102,9 +100,6 @@ describe('Azure Storage module', () => {
         expect(fileExists(file))
     })
 
-
-
-
     it.skip('should list blobs from azure storage', async () => {
         const account = "devstoreaccount1";
         const accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
@@ -117,5 +112,18 @@ describe('Azure Storage module', () => {
         expect(blobs.length).toBeGreaterThan(0)
         expect(blobs.filter(b => b.name == blobName).length).toBe(1)
     })
+
+    it('should send a message to the storage queue', async () => {
+        const account = "devstoreaccount1";
+        const accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
+        let azure = new AzureStorage(account,accountKey,{cloudName:'Azurite'})
+        const message = {foo:"bar"}
+        const queueName = 'node-helpers-testing'
+        let response = await azure.sendMessageToQueue(queueName,JSON.stringify(message))
+        expect(response._response.status == 201)
+    })
+    it.todo('should send generate a SAS URL for the storage queue')
+    it.todo('should send list the queues in the storage account')
+
 
 })
