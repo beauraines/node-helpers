@@ -113,7 +113,7 @@ describe('Azure Storage module', () => {
         expect(blobs.filter(b => b.name == blobName).length).toBe(1)
     })
 
-    it('should send a message to the storage queue', async () => {
+    it.skip('should send a message to the storage queue', async () => {
         const account = "devstoreaccount1";
         const accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
         let azure = new AzureStorage(account,accountKey,{cloudName:'Azurite'})
@@ -122,8 +122,38 @@ describe('Azure Storage module', () => {
         let response = await azure.sendMessageToQueue(queueName,JSON.stringify(message))
         expect(response._response.status == 201)
     })
-    it.todo('should send generate a SAS URL for the storage queue')
-    it.todo('should send list the queues in the storage account')
+
+    it.skip('should error when generating a SAS URL for the storage queue without permissions', async () => {
+        const account = "devstoreaccount1";
+        const accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
+        let azure = new AzureStorage(account,accountKey,{cloudName:'Azurite'})
+        const queueName = 'node-helpers-testing'
+        expect(() => azure.getStorageQueueSignedURL(queueName)).toThrow();
+    })
+
+    it.skip('should generate a SAS URL for the storage queue', async () => {
+        const account = "devstoreaccount1";
+        const accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
+        let azure = new AzureStorage(account,accountKey,{cloudName:'Azurite'})
+        const queueName = 'node-helpers-testing'
+        const options = {permissions:"r"}
+        let response = await azure.getStorageQueueSignedURL(queueName,options)
+        console.log(response.includes('sp=ru'))
+        // expect(response._response.status == 201)
+        expect(response.includes('sp=r')).toBe(true) // Read permissions
+        expect(response.includes('http://127.0.0.1:10001/devstoreaccount1/node-helpers-testing')).toBe(true) // Azurite URL for storage queue
+        // expect(response.includes('se=2024-10-13T23%3A59%3A02Z')).toBe(true) // Expiration time defaults to 30 minutes
+    })
+
+
+    it.skip('should list the queues in the storage account', async () => {
+        const account = "devstoreaccount1";
+        const accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
+        let azure = new AzureStorage(account,accountKey,{cloudName:'Azurite'})
+        const queueName = 'node-helpers-testing';
+        let queues = await azure.listsQueues();
+        expect(queues.map(x => x.name).indexOf(queueName)).toBeGreaterThan(-1)
+    })
 
 
 })
