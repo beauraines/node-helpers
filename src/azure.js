@@ -1,8 +1,8 @@
 const dayjs = require('dayjs')
 const fs = require('fs');
 const { streamToBuffer } = require('./helpers.js')
-const { BlobServiceClient, StorageSharedKeyCredential } = require("@azure/storage-blob");
-const { QueueClient } = require("@azure/storage-queue");
+const { BlobServiceClient, StorageSharedKeyCredential:BlobStorageSharedKeyCredential } = require("@azure/storage-blob");
+const { QueueServiceClient ,StorageSharedKeyCredential:QueueStorageSharedKeyCredential } = require("@azure/storage-queue");
 var path = require('path');
 
 /**
@@ -130,7 +130,7 @@ getStorageQueueSignedURL(queueUrl,options) {
 
     const blobServiceClient = new BlobServiceClient(
       this.host('blob',this.cloudName),
-      new StorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+      new BlobStorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
     );
     const containerClient = blobServiceClient.getContainerClient(containerName);
     const blockBlobClient = containerClient.getBlockBlobClient(blobName);
@@ -158,7 +158,7 @@ getStorageQueueSignedURL(queueUrl,options) {
   async uploadBlobFromFile(containerName,file) {
     const blobServiceClient = new BlobServiceClient(
       this.host('blob',this.cloudName),
-      new StorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+      new BlobStorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
     );
     const containerClient = blobServiceClient.getContainerClient(containerName);
     
@@ -194,7 +194,7 @@ getStorageQueueSignedURL(queueUrl,options) {
   async downloadBlobToFile(containerName,blobName,file) {
     const blobServiceClient = new BlobServiceClient(
       this.host('blob',this.cloudName),
-      new StorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+      new BlobStorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
     );
     const containerClient = blobServiceClient.getContainerClient(containerName);
     const blobClient = containerClient.getBlobClient(blobName);
@@ -219,7 +219,7 @@ getStorageQueueSignedURL(queueUrl,options) {
   async getBlob(containerName,blobName) {
     const blobServiceClient = new BlobServiceClient(
       this.host('blob',this.cloudName),
-      new StorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+      new BlobStorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
     );
     const containerClient = blobServiceClient.getContainerClient(containerName);
     const blobClient = containerClient.getBlobClient(blobName);
@@ -246,7 +246,7 @@ getStorageQueueSignedURL(queueUrl,options) {
   async getBinaryBlob(containerName,blobName) {
     const blobServiceClient = new BlobServiceClient(
       this.host('blob',this.cloudName),
-      new StorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+      new BlobStorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
     );
     const containerClient = blobServiceClient.getContainerClient(containerName);
     const blobClient = containerClient.getBlobClient(blobName);
@@ -268,7 +268,7 @@ getStorageQueueSignedURL(queueUrl,options) {
   async listBlobs(containerName) {
     const blobServiceClient = new BlobServiceClient(
       this.host('blob',this.cloudName),
-      new StorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+      new BlobStorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
     );
     const containerClient = blobServiceClient.getContainerClient(containerName);
     let blobs = []
