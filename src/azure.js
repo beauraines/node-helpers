@@ -74,8 +74,14 @@ class AzureStorage {
   /**
    * Sends a message to the specified storage queue. The messages are given a TTL based upon the
    * class's `queueMessageTTLSeconds` value.
+   * 
+   * The response includes the `expiresOn`, `messageId` and `requestId` as well as a status code in 
+   * `_response.status`
+   * 
    * @param {string} queueUrl The URL to the storage queue
    * @param {string} messageContent The message to send to the queue
+   * 
+   * @returns {Object} sendMessageResponse
    */
   async sendMessageToQueue(queueName, messageContent) {
     try {
@@ -91,13 +97,10 @@ class AzureStorage {
       };
 
       let sendMessageResponse = await queueClient.sendMessage(messageContent,queueOptions);
-      // TODO maybe return the sendMessageResponse instead. Not necessarily a breaking change because this is already broken
-      console.log(
-        "Sent message successfully, service assigned message Id:", sendMessageResponse.messageId,
-        "service assigned request Id:", sendMessageResponse.requestId
-      );
+      return sendMessageResponse;
+
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message)      
     }
   }
 
