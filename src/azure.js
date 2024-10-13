@@ -104,6 +104,13 @@ class AzureStorage {
     }
   }
 
+
+  // TODO getMessageFromQueue
+
+  // TODO deleteMessageFromQueue
+
+  // TODO getQueueLength
+
   /**
    * Lists storage queues in the  storage account
    * 
