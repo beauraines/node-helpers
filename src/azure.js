@@ -109,7 +109,17 @@ class AzureStorage {
 
   // TODO deleteMessageFromQueue
 
-  // TODO getQueueLength
+  async getQueueProperties(queueName) {
+    const queueServiceClient = new QueueServiceClient(
+      this.host('queue',this.cloudName),
+      new QueueStorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+    );
+
+    const queueClient = queueServiceClient.getQueueClient(queueName);
+    const properties = await queueClient.getProperties();
+    return properties
+
+  }
 
   /**
    * Lists storage queues in the  storage account

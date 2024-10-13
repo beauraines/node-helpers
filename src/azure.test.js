@@ -113,7 +113,7 @@ describe('Azure Storage module', () => {
         expect(blobs.filter(b => b.name == blobName).length).toBe(1)
     })
 
-    it.skip('should send a message to the storage queue', async () => {
+    it('should send a message to the storage queue', async () => {
         const account = "devstoreaccount1";
         const accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
         let azure = new AzureStorage(account,accountKey,{cloudName:'Azurite'})
@@ -153,6 +153,15 @@ describe('Azure Storage module', () => {
         const queueName = 'node-helpers-testing';
         let queues = await azure.listsQueues();
         expect(queues.map(x => x.name).indexOf(queueName)).toBeGreaterThan(-1)
+    })
+
+    it('should get the queue properties', async () => {
+        const account = "devstoreaccount1";
+        const accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
+        let azure = new AzureStorage(account,accountKey,{cloudName:'Azurite'})
+        const queueName = 'node-helpers-testing';
+        let properties = await azure.getQueueProperties(queueName);
+        expect(properties.approximateMessagesCount).toBeGreaterThan(0)
     })
 
 
