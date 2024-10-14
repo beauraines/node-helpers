@@ -129,7 +129,7 @@ function getEpochMillis() {
  * 
  * @returns 
  */
-// eslint-disable-next-line no-unused-vars
+ 
 function sparkline(data,label,options) {
 
   options = {
