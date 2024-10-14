@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.3.0](https://github.com/beauraines/node-helpers/compare/v4.2.1...v4.3.0) (2024-10-14)
+
+
+### Features
+
+* string to upper case snake case conversion function ([8cd6f85](https://github.com/beauraines/node-helpers/commit/8cd6f8516d24e8ef19c65508814b4aefd65030e7))
+
 ### [4.2.1](https://github.com/beauraines/node-helpers/compare/v4.2.0...v4.2.1) (2024-10-13)
 
 ## [4.2.0](https://github.com/beauraines/node-helpers/compare/v4.1.1...v4.2.0) (2024-10-06)
