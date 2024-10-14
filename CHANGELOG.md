@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0](https://github.com/beauraines/node-helpers/compare/v4.3.0...v5.0.0) (2024-10-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* Updates and adds Storage Queue functions (#154)
+
+### Features
+
+* Updates and adds Storage Queue functions ([#154](https://github.com/beauraines/node-helpers/issues/154)) ([7301e37](https://github.com/beauraines/node-helpers/commit/7301e37e5e819a5d9ac222602a5e4f7be8e0816c))
+
 ## [4.3.0](https://github.com/beauraines/node-helpers/compare/v4.2.1...v4.3.0) (2024-10-14)
 
 
