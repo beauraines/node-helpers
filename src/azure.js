@@ -97,6 +97,8 @@ class AzureStorage {
       };
 
       let sendMessageResponse = await queueClient.sendMessage(messageContent,queueOptions);
+      sendMessageResponse.status = sendMessageResponse._response.status;
+      delete sendMessageResponse._response;
       return sendMessageResponse;
 
     } catch (error) {
@@ -104,11 +106,56 @@ class AzureStorage {
     }
   }
 
+  /**
+   * Gets any number of messages from the queue. The messages themselves are in the property
+   * `receivedMessageItems[]messageText` Use the options to control the number of messages returned, 
+   * defaults are 1 with a 30 second timeout. You will need the `messageId` and `popReceipt` to
+   * delete the message after processing.
+   * 
+   * @param {string} queueName The name of the queue
+   * @param {object} options Any options such as `numberOfMessages` or `visibilityTimeout`
+   * @returns {object} The queue messages response
+   */
+  async getQueueMessages(queueName,options) {
+    const queueServiceClient = new QueueServiceClient(
+      this.host('queue',this.cloudName),
+      new QueueStorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+    );
 
-  // TODO getMessageFromQueue
+    const queueClient = queueServiceClient.getQueueClient(queueName);
+    const receivedMessagesResponse = await queueClient.receiveMessages(options);
+    return receivedMessagesResponse;
 
-  // TODO deleteMessageFromQueue
+  }
 
+
+  /**
+   * Deletes a message, by `messageId` and `popReceipt` from a named queue
+   * 
+   * @param {string} queueName The name of the queue that has the message
+   * @param {string} messageId The message id to be deleted
+   * @param {string} popReceipt The popReceipt of teh message to be deleted
+   * @returns object with a nothing really useful
+   */
+  async deleteQueueMessage(queueName,messageId,popReceipt) {
+    const queueServiceClient = new QueueServiceClient(
+      this.host('queue',this.cloudName),
+      new QueueStorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+    );
+
+    const queueClient = queueServiceClient.getQueueClient(queueName);
+    const deleteMessageResponse = await queueClient.deleteMessage(messageId,popReceipt);
+    return deleteMessageResponse
+
+  }
+
+  /**
+   * Gets the named queues properties, which includes the approximateMessagesCount
+   * 
+   * @param {string} queueName 
+   * 
+   * @returns {Object} the queues properties
+   */
   async getQueueProperties(queueName) {
     const queueServiceClient = new QueueServiceClient(
       this.host('queue',this.cloudName),
