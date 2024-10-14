@@ -1,8 +1,8 @@
 const dayjs = require('dayjs')
 const fs = require('fs');
 const { streamToBuffer } = require('./helpers.js')
-const { BlobServiceClient, StorageSharedKeyCredential } = require("@azure/storage-blob");
-const { QueueClient } = require("@azure/storage-queue");
+const { BlobServiceClient, StorageSharedKeyCredential:BlobStorageSharedKeyCredential } = require("@azure/storage-blob");
+const { QueueServiceClient ,StorageSharedKeyCredential:QueueStorageSharedKeyCredential } = require("@azure/storage-queue");
 var path = require('path');
 
 /**
@@ -74,44 +74,148 @@ class AzureStorage {
   /**
    * Sends a message to the specified storage queue. The messages are given a TTL based upon the
    * class's `queueMessageTTLSeconds` value.
+   * 
+   * The response includes the `expiresOn`, `messageId` and `requestId` as well as a status code in 
+   * `_response.status`
+   * 
    * @param {string} queueUrl The URL to the storage queue
    * @param {string} messageContent The message to send to the queue
+   * 
+   * @returns {Object} sendMessageResponse
    */
-  async sendMessageToQueue(queueUrl, messageContent,) {
+  async sendMessageToQueue(queueName, messageContent) {
     try {
-      const queueClient = new QueueClient(
-        queueUrl,
-        new StorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+      const queueServiceClient = new QueueServiceClient(
+        this.host('queue',this.cloudName),
+        new QueueStorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
       );
+
+      const queueClient = queueServiceClient.getQueueClient(queueName);
+        
       let queueOptions = {
         messageTimeToLive: this.queueMessageTTLSeconds
       };
-      let sendMessageResponse = await queueClient.sendMessage(messageContent, queueOptions);
-      console.log(
-        "Sent message successfully, service assigned message Id:", sendMessageResponse.messageId,
-        "service assigned request Id:", sendMessageResponse.requestId
-      );
+
+      let sendMessageResponse = await queueClient.sendMessage(messageContent,queueOptions);
+      sendMessageResponse.status = sendMessageResponse._response.status;
+      delete sendMessageResponse._response;
+      return sendMessageResponse;
+
     } catch (error) {
-      console.error(error.message)
+      console.log(error.message)      
     }
   }
 
   /**
-   * Gets a SAS token for the storage queue
-   * .
-   * @param {string} queueUrl The URL to the storage queue
-   * @param {object} options Should include `permissions: "raup"` or some combination thereof Any additional options supported. https://docs.microsoft.com/en-us/rest/api/storageservices/constructing-a-service-sas
+   * Gets any number of messages from the queue. The messages themselves are in the property
+   * `receivedMessageItems[]messageText` Use the options to control the number of messages returned, 
+   * defaults are 1 with a 30 second timeout. You will need the `messageId` and `popReceipt` to
+   * delete the message after processing.
+   * 
+   * @param {string} queueName The name of the queue
+   * @param {object} options Any options such as `numberOfMessages` or `visibilityTimeout`
+   * @returns {object} The queue messages response
    */
-getStorageQueueSignedURL(queueUrl,options) {
-    
-  const queueClient = new QueueClient(
-      queueUrl,
-      new StorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
-      )
-  
+  async getQueueMessages(queueName,options) {
+    const queueServiceClient = new QueueServiceClient(
+      this.host('queue',this.cloudName),
+      new QueueStorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+    );
+
+    const queueClient = queueServiceClient.getQueueClient(queueName);
+    const receivedMessagesResponse = await queueClient.receiveMessages(options);
+    return receivedMessagesResponse;
+
+  }
+
+
+  /**
+   * Deletes a message, by `messageId` and `popReceipt` from a named queue
+   * 
+   * @param {string} queueName The name of the queue that has the message
+   * @param {string} messageId The message id to be deleted
+   * @param {string} popReceipt The popReceipt of teh message to be deleted
+   * @returns object with a nothing really useful
+   */
+  async deleteQueueMessage(queueName,messageId,popReceipt) {
+    const queueServiceClient = new QueueServiceClient(
+      this.host('queue',this.cloudName),
+      new QueueStorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+    );
+
+    const queueClient = queueServiceClient.getQueueClient(queueName);
+    const deleteMessageResponse = await queueClient.deleteMessage(messageId,popReceipt);
+    return deleteMessageResponse
+
+  }
+
+  /**
+   * Gets the named queues properties, which includes the approximateMessagesCount
+   * 
+   * @param {string} queueName 
+   * 
+   * @returns {Object} the queues properties
+   */
+  async getQueueProperties(queueName) {
+    const queueServiceClient = new QueueServiceClient(
+      this.host('queue',this.cloudName),
+      new QueueStorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+    );
+
+    const queueClient = queueServiceClient.getQueueClient(queueName);
+    const properties = await queueClient.getProperties();
+    return properties
+
+  }
+
+  /**
+   * Lists storage queues in the  storage account
+   * 
+   * @returns Array
+   */
+  async listsQueues() {
+    try {
+    const queueServiceClient = new QueueServiceClient(
+      this.host('queue',this.cloudName),
+      new QueueStorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+    );
+
+    let queues = []
+    for await (const queue of queueServiceClient.listQueues()) {
+        queues.push(queue)
+    }
+
+    return queues;
+
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+  /**
+   * Gets a SAS URL for the storage queue
+   * .
+   * @param {string} queueName The name of the storage queue
+   * @param {object} options Should include `permissions: "raup"` or some combination thereof Any additional options supported. https://docs.microsoft.com/en-us/rest/api/storageservices/constructing-a-service-sas
+   * 
+   * @returns {string} SAS URL for the specified queue
+   */
+getStorageQueueSignedURL(queueName,options) {
+  const queueServiceClient = new QueueServiceClient(
+    this.host('queue',this.cloudName),
+    new QueueStorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+  );
+
+  const queueClient = queueServiceClient.getQueueClient(queueName);
+ 
   options = {
-      startsOn: dayjs().toDate(),
-      ...options
+    startsOn: dayjs().toDate(),
+    expiresOn: dayjs().add(this.tokenExpiry,'minutes'),
+    ...options
+  }
+  
+  if (!options.permissions || !options.expiresOn) {
+    throw new Error("Must provide 'permissions' and 'expiresOn' for Queue SAS generation when 'identifier' is not provided");    
   }
 
   return queueClient.generateSasUrl(options)
@@ -130,7 +234,7 @@ getStorageQueueSignedURL(queueUrl,options) {
 
     const blobServiceClient = new BlobServiceClient(
       this.host('blob',this.cloudName),
-      new StorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+      new BlobStorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
     );
     const containerClient = blobServiceClient.getContainerClient(containerName);
     const blockBlobClient = containerClient.getBlockBlobClient(blobName);
@@ -158,7 +262,7 @@ getStorageQueueSignedURL(queueUrl,options) {
   async uploadBlobFromFile(containerName,file) {
     const blobServiceClient = new BlobServiceClient(
       this.host('blob',this.cloudName),
-      new StorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+      new BlobStorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
     );
     const containerClient = blobServiceClient.getContainerClient(containerName);
     
@@ -194,7 +298,7 @@ getStorageQueueSignedURL(queueUrl,options) {
   async downloadBlobToFile(containerName,blobName,file) {
     const blobServiceClient = new BlobServiceClient(
       this.host('blob',this.cloudName),
-      new StorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+      new BlobStorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
     );
     const containerClient = blobServiceClient.getContainerClient(containerName);
     const blobClient = containerClient.getBlobClient(blobName);
@@ -219,7 +323,7 @@ getStorageQueueSignedURL(queueUrl,options) {
   async getBlob(containerName,blobName) {
     const blobServiceClient = new BlobServiceClient(
       this.host('blob',this.cloudName),
-      new StorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+      new BlobStorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
     );
     const containerClient = blobServiceClient.getContainerClient(containerName);
     const blobClient = containerClient.getBlobClient(blobName);
@@ -246,7 +350,7 @@ getStorageQueueSignedURL(queueUrl,options) {
   async getBinaryBlob(containerName,blobName) {
     const blobServiceClient = new BlobServiceClient(
       this.host('blob',this.cloudName),
-      new StorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+      new BlobStorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
     );
     const containerClient = blobServiceClient.getContainerClient(containerName);
     const blobClient = containerClient.getBlobClient(blobName);
@@ -268,7 +372,7 @@ getStorageQueueSignedURL(queueUrl,options) {
   async listBlobs(containerName) {
     const blobServiceClient = new BlobServiceClient(
       this.host('blob',this.cloudName),
-      new StorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
+      new BlobStorageSharedKeyCredential(this.storageAccountName, this.storageAccountKey)
     );
     const containerClient = blobServiceClient.getContainerClient(containerName);
     let blobs = []
