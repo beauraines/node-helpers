@@ -30,5 +30,13 @@ describe('helpers',()=> {
         expect(helper.sparkline(input,label, options)).toBe(expectedOutput)
     })
 
+    it('should return an upper case snake case string',()=>{
+        const expectedOutput = 'NEXT_WEEK';
+        const inputs = ['nextWeek','next-week','next_week'];
+        inputs.forEach( i => {
+            expect(helper.toUpperSnakeCase(i)).toBe(expectedOutput)
+        })
+    })
+
 })
 
