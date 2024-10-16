@@ -4,7 +4,6 @@ const sqlite3 = require('sqlite3');
 const helpers = require('./helpers');
 const { getDBConnection } = require('./database');
 const path = require('path');
-const process = require('node:process')
 
 jest.mock('sqlite');
 jest.mock('os');
