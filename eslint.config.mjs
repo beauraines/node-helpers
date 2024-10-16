@@ -22,6 +22,7 @@ export default [...compat.extends("eslint:recommended"), {
         globals: {
             ...globals.browser,
             ...globals.commonjs,
+            ...globals.node,
             ...jest.environments.globals.globals,
         },
 

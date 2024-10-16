@@ -1,6 +1,5 @@
 const fs = require('fs');
 const {fileExists} = require('./helpers');
-const process = require('node:process')
 
 /**
  * Reads a file for credentials and validates that the file has the required attributes. 

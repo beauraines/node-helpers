@@ -1,5 +1,4 @@
 const {homedir} = require('os');
-const process = require('node:process')
 const sqlite = require('sqlite');
 const sqlite3 = require('sqlite3');
 const {fileExists} = require('./helpers');
