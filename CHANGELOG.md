@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.1.0](https://github.com/beauraines/node-helpers/compare/v5.0.0...v5.1.0) (2024-10-16)
+
+
+### Features
+
+* adds cli argument module ([#155](https://github.com/beauraines/node-helpers/issues/155)) ([b7943b6](https://github.com/beauraines/node-helpers/commit/b7943b6cf55a221ecc1a55afec2ab9505ed88347))
+
 ## [5.0.0](https://github.com/beauraines/node-helpers/compare/v4.3.0...v5.0.0) (2024-10-14)
 
 
