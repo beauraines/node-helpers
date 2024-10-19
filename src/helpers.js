@@ -114,6 +114,16 @@ function getEpochMillis() {
   return Date.now()
 }
 
+/**
+ * Coverts a unix timestamp to an ISO-8601 date string.
+ * 
+ * @param {number} timestamp A unix timestamp
+ * @returns String ISO-8601 formatted date
+ */
+function unixTimestampToDate(timestamp) {
+  return (new Date(timestamp * 1000)).toISOString()
+}
+
 
 
 /**
@@ -223,5 +233,6 @@ module.exports = {
   toTitleCase,
   toUpperSnakeCase,
   unixTimestamp,
+  unixTimestampToDate,
   writeFile
 }

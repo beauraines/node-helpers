@@ -38,5 +38,12 @@ describe('helpers',()=> {
         })
     })
 
+    it('should return the correct date-time for a timestamp',() =>{
+        const timestamp = 1729396788;
+        const expectedOutput = '2024-10-20T03:59:48.000Z';
+        const convertedDate = helper.unixTimestampToDate(timestamp);
+        expect(convertedDate).toBe(expectedOutput);
+    })
+
 })
 
