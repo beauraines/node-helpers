@@ -218,6 +218,10 @@ const decompressFile = (filePath) => {
   return fs.createReadStream(filePath).pipe(gunzip());
 };
 
+const sleep = async (milliseconds) => {
+  return new Promise(resolve => setTimeout(resolve, milliseconds))
+}
+
 
 module.exports = {
   decompressFile,
@@ -227,6 +231,7 @@ module.exports = {
   groupAndSum,
   readFile,
   listFiles,
+  sleep,
   sparkline,
   streamToBuffer,
   stripNewLines,
