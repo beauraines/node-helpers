@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.3.0](https://github.com/beauraines/node-helpers/compare/v5.2.5...v5.3.0) (2024-12-21)
+
+
+### Features
+
+* **helper:** async sleep function ([fc26a39](https://github.com/beauraines/node-helpers/commit/fc26a39fa54a353aba297390112646d01b450498))
+
 ### [5.2.5](https://github.com/beauraines/node-helpers/compare/v5.2.4...v5.2.5) (2024-12-07)
 
 ### [5.2.4](https://github.com/beauraines/node-helpers/compare/v5.2.3...v5.2.4) (2024-11-26)
