@@ -45,5 +45,13 @@ describe('helpers',()=> {
         expect(convertedDate).toBe(expectedOutput);
     })
 
+    it('should sleep for 1 second', async () => {
+        let expectedEnd = new Date();
+        expectedEnd.setSeconds(expectedEnd.getSeconds() + 1);  // Modify expectedEnd directly
+        await helper.sleep(1000);
+        const end = new Date();
+        expect(end.getTime()).toBeCloseTo(expectedEnd.getTime(), -2);  // Allow slight deviation
+    })
+
 })
 
