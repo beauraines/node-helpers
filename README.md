@@ -4,6 +4,8 @@ This is a set of helpers for NodeJS. They're written for quick reuse rather than
 
 My use is primarily in quicker one-off scripts that sometimes morph into something long-lasting...
 
+<a href="https://deepwiki.com/beauraines/node-helpers"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a>
+
 
 ## Azure Storage
 
