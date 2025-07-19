@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.3.6](https://github.com/beauraines/node-helpers/compare/v5.3.5...v5.3.6) (2025-07-19)
+
 ### [5.3.5](https://github.com/beauraines/node-helpers/compare/v5.3.4...v5.3.5) (2025-06-03)
 
 
