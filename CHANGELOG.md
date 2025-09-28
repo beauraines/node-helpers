@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.3.7](https://github.com/beauraines/node-helpers/compare/v5.3.6...v5.3.7) (2025-09-28)
+
+
+### Bug Fixes
+
+* **deps:** bump tar-fs from 2.1.3 to 2.1.4 ([#180](https://github.com/beauraines/node-helpers/issues/180)) ([8c8a924](https://github.com/beauraines/node-helpers/commit/8c8a92409272ea96beac3d8df8561d5d6e98a222))
+
 ### [5.3.6](https://github.com/beauraines/node-helpers/compare/v5.3.5...v5.3.6) (2025-07-19)
 
 ### [5.3.5](https://github.com/beauraines/node-helpers/compare/v5.3.4...v5.3.5) (2025-06-03)
