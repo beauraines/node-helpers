@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.3.8](https://github.com/beauraines/node-helpers/compare/v5.3.7...v5.3.8) (2025-11-20)
+
+
+### Bug Fixes
+
+* **deps:** bump js-yaml ([#181](https://github.com/beauraines/node-helpers/issues/181)) ([7dacffb](https://github.com/beauraines/node-helpers/commit/7dacffb4f86709c3ba14774f0c7c3e22a0aa5fdd))
+
 ### [5.3.7](https://github.com/beauraines/node-helpers/compare/v5.3.6...v5.3.7) (2025-09-28)
 
 
