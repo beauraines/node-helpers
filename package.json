@@ -19,7 +19,7 @@
   "dependencies": {
     "@azure/storage-blob": "^12.14.0",
     "@azure/storage-queue": "^12.11.0",
-    "azure-devops-node-api": "^14.0.1",
+    "azure-devops-node-api": "^15.1.1",
     "dayjs": "^1.11.7",
     "gunzip-maybe": "^1.4.2",
     "node-fetch": "^2.6.7",
