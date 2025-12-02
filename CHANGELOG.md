@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.4.0](https://github.com/beauraines/node-helpers/compare/v5.3.8...v5.4.0) (2025-12-02)
+
+
+### Features
+
+* **ado:** new ADO auth function to use az login instead of PAT ([#182](https://github.com/beauraines/node-helpers/issues/182)) ([17ac529](https://github.com/beauraines/node-helpers/commit/17ac52979b8a770ae892d81d2c9fe06aadbf1e04))
+
 ### [5.3.8](https://github.com/beauraines/node-helpers/compare/v5.3.7...v5.3.8) (2025-11-20)
 
 
