@@ -3,6 +3,8 @@ const {getResourceId} = require('./helpers.js')
 const {readConfig } = require('./config.js')
 // eslint-disable-next-line no-redeclare
 const fetch = require('node-fetch');
+const util = require('util')
+const exec = util.promisify(require('child_process').exec)
 
 // get Current iteration
 // Get current iteration work items
@@ -30,6 +32,55 @@ async function getAdoApi(configFile) {
         workItemAPI,
         teamContext,
         config
+    }
+}
+
+/**
+ * Authenticate to Azure DevOps using the local `az` CLI login credentials.
+ *
+ * This function calls `az account get-access-token --resource 499b84ac-1321-427f-aa17-267ca6975798`
+ * to get an AAD access token for Azure DevOps and then constructs the same
+ * `azdev.WebApi` connection as `getAdoApi`.
+ *
+ * Usage: ensure the user has run `az login` and that `az` is available in PATH.
+ * Returns an object with `{ workAPI, workItemAPI, teamContext, config }`.
+ */
+async function getAdoApiWithAzCli(configFile) {
+    const config = await readConfig(configFile)
+
+    const orgUrl = config.org;
+    const teamContext = { project: config.project, team: config.team };
+
+    // Azure DevOps resource (AAD) id
+    const adoResource = '499b84ac-1321-427f-aa17-267ca6975798'
+
+    try {
+        const cmd = `az account get-access-token --resource ${adoResource} --output json`
+        const { stdout } = await exec(cmd)
+        const tokenObj = JSON.parse(stdout || '{}')
+        const accessToken = tokenObj.accessToken || tokenObj.access_token || tokenObj.token
+
+        if (!accessToken) {
+            throw new Error('No access token returned from az CLI')
+        }
+
+        const authHandler = azdev.getBearerHandler(accessToken)
+        const connection = new azdev.WebApi(orgUrl, authHandler)
+
+        const workAPI = await connection.getWorkApi()
+        const workItemAPI = await connection.getWorkItemTrackingApi()
+
+        config.token = accessToken;
+
+        return {
+            workAPI,
+            workItemAPI,
+            teamContext,
+            config
+        }
+    } catch (err) {
+        console.error('getAdoApiWithAzCli: failed to obtain token from az CLI -', err.message)
+        throw err
     }
 }
 
@@ -111,5 +162,6 @@ module.exports = {
     getAdoApi,
     getChildWorkItems,
     getDistinctParentWorkItems,
-    callRestApi
+    callRestApi,
+    getAdoApiWithAzCli
 } 
