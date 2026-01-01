@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.4.4](https://github.com/beauraines/node-helpers/compare/v5.4.3...v5.4.4) (2026-01-01)
+
+
+### Bug Fixes
+
+* **deps:** bump azure-devops-node-api from 15.1.1 to 15.1.2 ([#187](https://github.com/beauraines/node-helpers/issues/187)) ([9e89c39](https://github.com/beauraines/node-helpers/commit/9e89c396b0bf0079066af684f512a6347481e6f5))
+
 ### [5.4.3](https://github.com/beauraines/node-helpers/compare/v5.4.2...v5.4.3) (2026-01-01)
 
 
