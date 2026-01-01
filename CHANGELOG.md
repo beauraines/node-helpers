@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.4.2](https://github.com/beauraines/node-helpers/compare/v5.4.1...v5.4.2) (2026-01-01)
+
+
+### Bug Fixes
+
+* **deps:** bump qs from 6.13.0 to 6.14.1 ([7a3797c](https://github.com/beauraines/node-helpers/commit/7a3797cc35e23f80609a1660a3814c7676e3936e))
+
 ### [5.4.1](https://github.com/beauraines/node-helpers/compare/v5.4.0...v5.4.1) (2025-12-18)
 
 
