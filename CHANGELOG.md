@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.4.7](https://github.com/beauraines/node-helpers/compare/v5.4.6...v5.4.7) (2026-01-25)
+
+
+### Bug Fixes
+
+* **deps:** bump lodash from 4.17.21 to 4.17.23 ([#189](https://github.com/beauraines/node-helpers/issues/189)) ([21465f8](https://github.com/beauraines/node-helpers/commit/21465f8d7ba97a11ec030c76929946959a168d58))
+
 ### [5.4.6](https://github.com/beauraines/node-helpers/compare/v5.4.4...v5.4.6) (2026-01-01)
 
 ### [5.4.4](https://github.com/beauraines/node-helpers/compare/v5.4.3...v5.4.4) (2026-01-01)
