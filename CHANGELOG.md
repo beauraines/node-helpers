@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.4.14](https://github.com/beauraines/node-helpers/compare/v5.4.13...v5.4.14) (2026-02-28)
+
+
+### Bug Fixes
+
+* **deps:** bump minimatch ([#197](https://github.com/beauraines/node-helpers/issues/197)) ([4070c97](https://github.com/beauraines/node-helpers/commit/4070c9797b09f8ca7ae259f50e9f09bf196091ee))
+
 ### [5.4.13](https://github.com/beauraines/node-helpers/compare/v5.4.12...v5.4.13) (2026-02-18)
 
 
