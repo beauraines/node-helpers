@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.4.18](https://github.com/beauraines/node-helpers/compare/v5.4.17...v5.4.18) (2026-03-08)
+
+
+### Bug Fixes
+
+* **deps:** bump underscore from 1.13.7 to 1.13.8 ([#201](https://github.com/beauraines/node-helpers/issues/201)) ([e0ba59a](https://github.com/beauraines/node-helpers/commit/e0ba59aed67f3362ec319ff598ff651a93538823))
+
 ### [5.4.17](https://github.com/beauraines/node-helpers/compare/v5.4.16...v5.4.17) (2026-03-01)
 
 
