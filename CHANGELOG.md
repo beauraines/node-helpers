@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.4.25](https://github.com/beauraines/node-helpers/compare/v5.4.24...v5.4.25) (2026-04-05)
+
+
+### Bug Fixes
+
+* **deps:** bump dayjs from 1.11.19 to 1.11.20 ([#213](https://github.com/beauraines/node-helpers/issues/213)) ([e98e52f](https://github.com/beauraines/node-helpers/commit/e98e52f522cf06ed762dbf6ca0eecc77b15bbe28))
+
 ### [5.4.24](https://github.com/beauraines/node-helpers/compare/v5.4.23...v5.4.24) (2026-04-05)
 
 ### [5.4.23](https://github.com/beauraines/node-helpers/compare/v5.4.22...v5.4.23) (2026-03-30)
