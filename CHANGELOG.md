@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.4.30](https://github.com/beauraines/node-helpers/compare/v5.4.29...v5.4.30) (2026-05-09)
+
+
+### Bug Fixes
+
+* **deps:** bump fast-xml-builder from 1.1.5 to 1.2.0 ([#218](https://github.com/beauraines/node-helpers/issues/218)) ([a6f6993](https://github.com/beauraines/node-helpers/commit/a6f6993b46eb30e3a88eccd57f178b713a32ec9b))
+
 ### [5.4.29](https://github.com/beauraines/node-helpers/compare/v5.4.28...v5.4.29) (2026-05-07)
 
 
