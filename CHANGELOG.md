@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.4.34](https://github.com/beauraines/node-helpers/compare/v5.4.33...v5.4.34) (2026-08-01)
+
+
+### Bug Fixes
+
+* **deps:** bump tar from 7.5.12 to 7.5.22 ([#226](https://github.com/beauraines/node-helpers/issues/226)) ([66bcb4b](https://github.com/beauraines/node-helpers/commit/66bcb4b1d06ae5cb9ca0746c162a6a39d102ed13))
+
 ### [5.4.33](https://github.com/beauraines/node-helpers/compare/v5.4.32...v5.4.33) (2026-06-03)
 
 
