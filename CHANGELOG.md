@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.4.41](https://github.com/beauraines/node-helpers/compare/v5.4.40...v5.4.41) (2026-09-09)
+
+
+### Bug Fixes
+
+* **deps:** bump @azure/storage-queue from 12.29.0 to 12.31.0 ([#231](https://github.com/beauraines/node-helpers/issues/231)) ([f211c5c](https://github.com/beauraines/node-helpers/commit/f211c5cf618471d3725e2fe2ddd2b9123bebb01e))
+* **deps:** bump dayjs from 1.11.21 to 1.11.23 ([#232](https://github.com/beauraines/node-helpers/issues/232)) ([18c8445](https://github.com/beauraines/node-helpers/commit/18c84458227f46e83bb54944d22d9202ce1dbe2a))
+
 ### [5.4.40](https://github.com/beauraines/node-helpers/compare/v5.4.39...v5.4.40) (2026-09-07)
 
 
