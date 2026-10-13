@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.4.43](https://github.com/beauraines/node-helpers/compare/v5.4.42...v5.4.43) (2026-10-13)
+
+
+### Bug Fixes
+
+* **deps:** bump brace-expansion ([#243](https://github.com/beauraines/node-helpers/issues/243)) ([3937717](https://github.com/beauraines/node-helpers/commit/3937717787ed9e61924ea4b60441b73707ea7a0f))
+
 ### [5.4.42](https://github.com/beauraines/node-helpers/compare/v5.4.41...v5.4.42) (2026-09-09)
 
 ### [5.4.41](https://github.com/beauraines/node-helpers/compare/v5.4.40...v5.4.41) (2026-09-09)
