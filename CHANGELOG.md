@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.4.45](https://github.com/beauraines/node-helpers/compare/v5.4.44...v5.4.45) (2026-11-08)
+
+
+### Bug Fixes
+
+* **deps:** bump ip-address from 10.2.0 to 10.7.5 ([#246](https://github.com/beauraines/node-helpers/issues/246)) ([128430a](https://github.com/beauraines/node-helpers/commit/128430ae58de4bbf5354137664a42be72b6848dc))
+
 ### [5.4.44](https://github.com/beauraines/node-helpers/compare/v5.4.43...v5.4.44) (2026-10-13)
 
 ### [5.4.43](https://github.com/beauraines/node-helpers/compare/v5.4.42...v5.4.43) (2026-10-13)
